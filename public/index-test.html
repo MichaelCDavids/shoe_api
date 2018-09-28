@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.min.js"></script>
+    <meta charset="utf-8">
+    <title>Test Page</title>
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <script>
+        // the mocha test style to use - we use BDD - Behviour Driven Development
+        mocha.setup('bdd');
+        //ensure the assert function is available
+        var assert = chai.assert;
+    </script>
+    <!-- the function to be tested -->
+
+    <script src="./test/shoe-catalogue-factory-test.js" charset="utf-8"></script>
+    <script src="./js/shoe-catalogue-factory.js" charset="utf-8"></script>
+    <script>
+        <!-- configure and run mocha -->
+        mocha.checkLeaks();
+        mocha.run();
+    </script>
+  </body>
+</html>
