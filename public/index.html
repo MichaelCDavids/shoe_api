@@ -1,29 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
 
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<head>
   <meta charset="utf-8">
   <title>Shoe Catalogue | M Davids</title>
   <meta name="description" content="A simple online shoe catalogue">
   <meta name="author" content="Michael Davids">
-
-  <!-- Mobile Specific Metas
-  ––––––––––––––––––––––––––––––––––––––––––––––––––-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <!-- <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css"> -->
-
-  <!-- JavaScript
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <!-- Handlebars Template
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
-
   <script type="text/x-template" class="availableStockTemplate">
     <h4 style="text-align:center;">Shoes In Stock</h4>
     {{#each shoes}}
@@ -54,7 +39,6 @@
       </div>
     {{/each}}
   </script>
-
   <script type="text/x-template" class="afterSearchTemplate">
     <h5>Search Results</h5>
     {{#each scannedShoes}}
@@ -85,7 +69,6 @@
       </div>
     {{/each}}
   </script>
-
   <script type="text/x-template" class="shoppingCartTemplate">
     <h5>Shopping Cart</h5>
     <table>
@@ -120,13 +103,10 @@
        </table>
        <button onclick="removeFromCart({{this.id}})" type="button" name="remove">Remove</button>
       </div>
-
     {{/each}}
     <!-- <button onclick="clearCart({{this.id}})" type="button" name="clear">Clear Cart</button> -->
     <button onclick="checkout()" type="button" name="checkout">Checkout</button>
   </script>
-
-
   <script type="text/x-template" class="brandDropdown">
     <select name="" id="">
       {{#each brand}}
@@ -134,7 +114,6 @@
       {{/each}}
     </select>
   </script>
-
   <script type="text/x-template" class="colorDropdown">
     <select name="" id="">
       {{#each color}}
@@ -142,157 +121,138 @@
       {{/each}}
     </select>
   </script>
-
-  <!-- CSS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/skeleton.css">
   <link rel="stylesheet" href="css/custom.css">
-
-  <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="images/favicon.png">
-
 </head>
+
 <body>
-
-  <!-- Primary Page Layout
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
-
-
     <div class="row">
       <div class="twelve columns" style="margin-top: 10%; text-align:center;">
       </div>
     </div>
-
-
     <div class="row search-area" style="margin-top: 5%; text-align:center;">
       <select class="brand" name="brand">
-         <option value="">Brand</option>
-         <option value="Adidas">Adidas</option>
-         <option value="Asics">Asics</option>
-         <option value="Caterpillar">Caterpillar</option>
-         <option value="Converse">Converse</option>
-         <option value="DC Shoes">DC Shoes</option>
-         <option value="Etnies">Etnies</option>
-         <option value="Fila">Fila</option>
-         <option value="Nike">Nike</option>
-         <option value="New Balance">New Balance</option>
-         <option value="Lacoste">Lacoste</option>
-         <option value="Puma">Puma</option>
-         <option value="Timberland">Timberland</option>
-         <option value="Vans">Vans</option>
-         <option value="Reebok">Reebok</option>
+        <option value="">Brand</option>
+        <option value="Adidas">Adidas</option>
+        <option value="Asics">Asics</option>
+        <option value="Caterpillar">Caterpillar</option>
+        <option value="Converse">Converse</option>
+        <option value="DC Shoes">DC Shoes</option>
+        <option value="Etnies">Etnies</option>
+        <option value="Fila">Fila</option>
+        <option value="Nike">Nike</option>
+        <option value="New Balance">New Balance</option>
+        <option value="Lacoste">Lacoste</option>
+        <option value="Puma">Puma</option>
+        <option value="Timberland">Timberland</option>
+        <option value="Vans">Vans</option>
+        <option value="Reebok">Reebok</option>
       </select>
       <select class="size" name="size">
-         <option value="0">Size</option>
-         <option value="1">1</option>
-         <option value="2">2</option>
-         <option value="3">3</option>
-         <option value="4">4</option>
-         <option value="5">5</option>
-         <option value="6">6</option>
-         <option value="7">7</option>
-         <option value="8">8</option>
-         <option value="9">9</option>
-         <option value="10">10</option>
-         <option value="11">11</option>
-         <option value="12">12</option>
-         <option value="13">13</option>
-         <option value="14">14</option>
-         <option value="15">15</option>
+        <option value="0">Size</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
       </select>
-      <button id="search-button" type="button" name="search" >Search</button>
+      <button id="search-button" type="button" name="search">Search</button>
     </div>
-
     <div class="row add-area" style="margin-top: 5%; text-align:center;">
-        <select class="addBrand" name="addBrand">
-          <option value="Adidas">Adidas</option>
-          <option value="Asics">Asics</option>
-          <option value="Caterpillar">Caterpillar</option>
-          <option value="Converse">Converse</option>
-          <option value="DC Shoes">DC Shoes</option>
-          <option value="Etnies">Etnies</option>
-          <option value="Fila">Fila</option>
-          <option value="Nike">Nike</option>
-          <option value="New Balance">New Balance</option>
-          <option value="Lacoste">Lacoste</option>
-          <option value="Puma">Puma</option>
-          <option value="Timberland">Timberland</option>
-          <option value="Vans">Vans</option>
-          <option value="Reebok">Reebok</option>
-       </select>
-       <select class="addSize" name="addSize">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-          <option value="11">11</option>
-          <option value="12">12</option>
-          <option value="13">13</option>
-          <option value="14">14</option>
-          <option value="15">15</option>
-       </select>
-       <select class="addColor" name="addColor">
-         <option value="azure">Azure</option>
-         <option value="beige">Beige</option>
-         <option value="black">Black</option>
-         <option value="brown">Brown</option>
-         <option value="green">Green</option>
-         <option value="grey">Grey</option>
-         <option value="gold">Gold</option>
-         <option value="navy">Navy</option>
-         <option value="orange">Orange</option>
-         <option value="olive">Olive</option>
-         <option value="pink">Pink</option>
-         <option value="powderblue">Powder Blue</option>
-         <option value="purple">Purple</option>
-         <option value="red">Red</option>
-         <option value="slategray">Slate Gray</option>
-         <option value="snow">Snow</option>
-         <option value="white">White</option>
-       </select>
-       <input type="number" name="addPrice" class="addPrice" placeholder="Item Price">
-       <input type="number" name="addstock" class="addStock" placeholder="Amount In Stock">
-       <button id="add-button" type="submit" name="add" >Add</button>
-     
-      
+      <select class="addBrand" name="addBrand">
+        <option value="Adidas">Adidas</option>
+        <option value="Asics">Asics</option>
+        <option value="Caterpillar">Caterpillar</option>
+        <option value="Converse">Converse</option>
+        <option value="DC Shoes">DC Shoes</option>
+        <option value="Etnies">Etnies</option>
+        <option value="Fila">Fila</option>
+        <option value="Nike">Nike</option>
+        <option value="New Balance">New Balance</option>
+        <option value="Lacoste">Lacoste</option>
+        <option value="Puma">Puma</option>
+        <option value="Timberland">Timberland</option>
+        <option value="Vans">Vans</option>
+        <option value="Reebok">Reebok</option>
+      </select>
+      <select class="addSize" name="addSize">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+      </select>
+      <select class="addColor" name="addColor">
+        <option value="azure">Azure</option>
+        <option value="beige">Beige</option>
+        <option value="black">Black</option>
+        <option value="brown">Brown</option>
+        <option value="green">Green</option>
+        <option value="grey">Grey</option>
+        <option value="gold">Gold</option>
+        <option value="navy">Navy</option>
+        <option value="orange">Orange</option>
+        <option value="olive">Olive</option>
+        <option value="pink">Pink</option>
+        <option value="powderblue">Powder Blue</option>
+        <option value="purple">Purple</option>
+        <option value="red">Red</option>
+        <option value="slategray">Slate Gray</option>
+        <option value="snow">Snow</option>
+        <option value="white">White</option>
+      </select>
+      <input type="number" name="addPrice" class="addPrice" placeholder="Item Price">
+      <input type="number" name="addstock" class="addStock" placeholder="Amount In Stock">
+      <button id="add-button" type="submit" name="add">Add</button>
     </div>
     <div class="buttons">
-      <button id="stock-button" type="button" name="stock" style="margin-top:5%;" >Stock</button>
-      <button id="show-button" type="button" name="show" style="margin-top:5%;" >Cart</button>
+      <button id="stock-button" type="button" name="stock" style="margin-top:5%;">Stock</button>
+      <button id="show-button" type="button" name="show" style="margin-top:5%;">Cart</button>
     </div>
     <!-- shopping cart section -->
     <div class="row shopping-cart" style="margin: 5% 5%;">
-     <div class="twelve columns insertShoppingCartElement">
-
-     </div>
+      <div class="twelve columns insertShoppingCartElement">
+      </div>
     </div>
     <!-- search results section -->
     <div class="row search-results" style="margin: 5% 5%;">
       <div class="twelve columns insertSearchDataElement">
-
       </div>
     </div>
     <!-- available stock section -->
     <div class="row available-stock">
-       <div class="twelve columns insertAvailableStockElement stock">
+      <div class="twelve columns insertAvailableStockElement stock">
 
-       </div>
+      </div>
     </div>
-
   </div>
-
-<!-- End Document
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
-<script src="js/shoe-catalogue-factory.js" charset="utf-8"></script><!--Linking JavaScript to index-->
-<script src="js/shoe-catalogue-dom.js" charset="utf-8"></script><!--Linking JavaScript to index-->
+<script src="js/shoe-catalogue-factory.js" charset="utf-8"></script>
+<!--Linking JavaScript to index-->
+<script src="js/shoe-catalogue-dom.js" charset="utf-8"></script>
+<!--Linking JavaScript to index-->
+
 </html>

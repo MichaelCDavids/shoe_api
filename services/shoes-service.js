@@ -22,9 +22,8 @@ module.exports = function ShoesService(pool) {
         await pool.query(insertShoeQuery, shoeDataList);
     }
 
-    async function sellStock(shoeDataId){
-        console.log(shoeDataId)
-        await pool.query('delete from shoes where id=$1',[shoeDataId]);
+    async function sellStock(shoeID){
+        await pool.query('delete from shoes where id=$1',[shoeID]);
     }
     return {
         shoesInStock: getShoes,

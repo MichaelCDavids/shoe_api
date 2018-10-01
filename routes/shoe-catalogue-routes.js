@@ -1,49 +1,7 @@
 module.exports = function(shoesService, cartService) {	
-	async function showAll(req, res, next) {
+	async function showAll(req, res) {
 		try {
 			let results = await shoesService.shoesInStock(); 
-			res.json({status: 'success', items: results})
-		}
-		catch (err) {
-			next(err);
-		}
-	};
-	async function filteredBySize(req, res, next) {
-		try {
-			let size = req.params.size
-			let results = await shoesService.allSize(size); 
-			res.json({status: 'success', items: results})
-		}
-		catch (err) {
-			next(err);
-		}
-	};
-	async function filteredByBrand(req, res, next) {
-		try {
-			let brand = req.params.brandname
-			let results = await shoesService.allBrand(brand); 
-			res.json({status: 'success', items: results})
-		}
-		catch (err) {
-			next(err);
-		}
-	};
-	async function filteredByBrandSize(req, res, next) {
-		try {
-			let brand = req.params.brandname
-			let size = req.params.size
-			let results = await shoesService.allBrandSize(size,brand); 
-			res.json({status: 'success', items: results})
-		}
-		catch (err) {
-			next(err);
-		}
-	};
-	async function addShoe (req, res, next) {
-		try {
-			let params = req.body;
-			await shoesService.addStockItem(params); 
-			let results = await shoesService.shoesInStock();
 			res.json({status: 'success', items: results})
 		}
 		catch (err) {
@@ -53,7 +11,57 @@ module.exports = function(shoesService, cartService) {
 			})
 		}
 	};
-
+	async function filteredBySize(req, res) {
+		try {
+			let size = req.params.size
+			let results = await shoesService.allSize(size); 
+			res.json({status: 'success', items: results})
+		}
+		catch (err) {
+			res.json({
+				status: 'error',
+				error: err.stack
+			})
+		}
+	};
+	async function filteredByBrand(req, res) {
+		try {
+			let brand = req.params.brandname
+			let results = await shoesService.allBrand(brand); 
+			res.json({status: 'success', items: results})
+		}
+		catch (err) {
+			res.json({
+				status: 'error',
+				error: err.stack
+			})
+		}
+	};
+	async function filteredByBrandSize(req, res) {
+		try {
+			let brand = req.params.brandname
+			let size = req.params.size
+			let results = await shoesService.allBrandSize(size,brand); 
+			res.json({status: 'success', items: results})
+		}
+		catch (err) {
+			res.json({
+				status: 'error',
+				error: err.stack
+			})
+		}
+	};
+	async function addShoe (req, res) {
+		try {
+			let params = req.body;
+			await shoesService.addStockItem(params); 
+			let results = await shoesService.shoesInStock();
+			res.json({status: 'success', items: results})
+		}
+		catch (err) {
+			
+		}
+	};
 	async function sellShoe (req, res, next) {
 		try {
 			let  = req.params;
@@ -70,8 +78,6 @@ module.exports = function(shoesService, cartService) {
 			})
 		}
 	};
-
-	
 	return {
 		showAll,
 		filteredBySize,
