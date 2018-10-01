@@ -1,5 +1,4 @@
 function ShoeCatalogue() {
-
   function getShoes() {
     return axios.get('/api/shoes');
   }

@@ -4,7 +4,7 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const flash = require('express-flash');
-const CartService = require('./services/cart-service');
+//const CartService = require('./services/cart-service');
 const ShoesService = require('./services/shoes-service');
 const APIroutes = require('./routes/shoe-catalogue-routes');
 const app = express();
@@ -21,8 +21,8 @@ const pool = new Pool({
     ssl: useSSL
 });
 const shoesService = ShoesService(pool);
-const cartService = CartService(pool);
-const apiRoutes = APIroutes(shoesService, cartService);
+//const cartService = CartService(pool);
+const apiRoutes = APIroutes(shoesService);
 app.use(session({
     secret: 'just do it',
     resave: false,

@@ -1,4 +1,4 @@
-module.exports = function(shoesService, cartService) {	
+module.exports = function(shoesService) {	
 	async function showAll(req, res) {
 		try {
 			let results = await shoesService.shoesInStock(); 
