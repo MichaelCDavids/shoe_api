@@ -20,6 +20,7 @@
     "pg": "^7.4.3"
   },
   "devDependencies": {
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "supertest": "^3.3.0"
   }
 }
