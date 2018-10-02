@@ -62,11 +62,11 @@ module.exports = function(shoesService) {
 			
 		}
 	};
-	async function sellShoe (req, res) {
+	async function addToCart (req, res) {
 		try {
 			let shoeID = req.params;
 			console.log(shoeID);
-			await shoesService.removeStockItem(shoeID); 
+			await shoesService.addToCart(shoeID); 
 			let results = await shoesService.shoesInStock();
 			res.json({status: 'success', items: results})
 		}
@@ -84,6 +84,6 @@ module.exports = function(shoesService) {
 		filteredByBrand,
 		filteredByBrandSize,
 		addShoe,
-		sellShoe
+		addToCart
 	}
 }

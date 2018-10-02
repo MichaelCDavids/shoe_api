@@ -21,22 +21,22 @@ module.exports = function ShoesService(pool) {
         await pool.query(insertShoeQuery, shoeDataList);
     };
 
-    async function sellStock(shoeID) {
-        console.log('from shoes-service: '+shoeID.id);
+    async function addShoeToCart(shoeID) {
+        // console.log('from shoes-service: '+shoeID.id);
         let foundShoe = await pool.query('select * from shoes where id=$1', [shoeID.id]);
-        console.log(foundShoe.rows);
-        if(foundShoe.in_stock>0){
-            await pool.query('insert into cart (shoe_id=$1,brand=$2, price, color, size, qty) values (foundShoe.id, foundShoe.brand, foundShoe.price, foundShoe.color, foundShoe.size, 9);');
-        }
-        // let isThere = false;
-        // let foundItem = shoes.find((current) => (current.id === id));
-        // if (foundItem.in_stock > 0) {
-        //     shoppingCart.map((current) => {
-        //         if (current.id === id) {
-        //             current.qty += 1;
-        //             isThere = true;
-        //         };
-        //     });
+        let shoe = foundShoe.rows[0];
+        // if(foundShoe.in_stock>0){
+        //     await pool.query('insert into cart (shoe_id=$1,brand=$2, price, color, size, qty) values (foundShoe.id, foundShoe.brand, foundShoe.price, foundShoe.color, foundShoe.size);');
+        // }
+        let isThere = false;
+        if (shoe.in_stock > 0) {
+            
+            shoppingCart.map((current) => {
+                if (current.id === id) {
+                    current.qty += 1;
+                    isThere = true;
+                };
+            });
 
         //     if (!isThere) {
         //         shoppingCart.push({
@@ -54,7 +54,7 @@ module.exports = function ShoesService(pool) {
         //             current.in_stock -= 1;
         //         };
         //     });
-        // };
+         };
     };
 
 
@@ -65,7 +65,6 @@ module.exports = function ShoesService(pool) {
         allSize: filterSize,
         allBrandSize: filterBrandSize,
         addStockItem: addStock,
-        removeStockItem: sellStock
-
+        addToCart: addShoeToCart
     }
 }

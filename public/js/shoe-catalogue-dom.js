@@ -11,7 +11,7 @@ var addButton = document.querySelector("#add-button");
 
 // var checkoutButton = document.querySelector("#checkout-button");
 var stockButton = document.querySelector("#stock-button");
-var showButton = document.querySelector("#show-button");
+var cartButton = document.querySelector("#show-button");
 
 //Template for available stock
 var availableStockTemplateSource = document.querySelector(".availableStockTemplate").innerHTML;
@@ -27,14 +27,6 @@ var insertSearchDataElement = document.querySelector(".insertSearchDataElement")
 var templateSource = document.querySelector(".shoppingCartTemplate").innerHTML;
 var templateShoppingCart = Handlebars.compile(templateSource);
 var insertShoppingCartElement = document.querySelector(".insertShoppingCartElement");
-
-//Getting shoes in the Cart from Local Storage
-var cartStore = localStorage.getItem('Cart');
-var storedCart = JSON.parse(cartStore);
-
-//Getting sthe available shoes from Local Storage
-var shoeStore = localStorage.getItem('Shoes');
-var storedShoes = JSON.parse(shoeStore);
 
 //instance of the factory function
 const shoeCatalogue = ShoeCatalogue();
@@ -100,13 +92,15 @@ function renderTemplate(results) {
   });
 };
 stockButton.addEventListener("click", function () {
-  location.hash = "stock"
-  availableStockElement.innerHTML = templateCatalogue({
-    shoes: shoeCatalogue.shoesInStock()
-  });
-  insertShoppingCartElement.innerHTML = "";
+  shoeCatalogue.shoesInStock()
+    .then(results => {
+      availableStockElement.innerHTML = templateCatalogue({
+        shoes: results.data.items
+      });
+    })
+    insertSearchDataElement.innerHTML = "";
 });
-showButton.addEventListener('click', function () {
+cartButton.addEventListener('click', function () {
   insertShoppingCartElement.innerHTML = templateShoppingCart({
     cartShoes: shoeCatalogue.Cart(),
     total: shoeCatalogue.cartTotal()
@@ -115,7 +109,7 @@ showButton.addEventListener('click', function () {
   availableStockElement.innerHTML = "";
 });
 function addToCart(id) {
-  shoeCatalogue.removeStockItem(id)
+  shoeCatalogue.addItemToCart(id)
   
 
   // .addCart(id);

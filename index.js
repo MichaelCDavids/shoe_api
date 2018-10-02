@@ -15,7 +15,7 @@ let local = process.env.LOCAL || false;
 if (process.env.DATABASE_URL && !local) {
     useSSL = true;
 }
-const connectionString = process.env.DATABASE_URL || 'postgresql://coder:pg123@localhost:5432/shoe_catalogue_db';
+const connectionString = process.env.DATABASE_URL || 'postgresql://muji:pg123@localhost:5432/shoe_catalogue_db';
 const pool = new Pool({
     connectionString,
     ssl: useSSL
@@ -48,7 +48,7 @@ app.get('/api/shoes', apiRoutes.showAll);
 app.get('/api/shoes/brand/:brandname', apiRoutes.filteredByBrand);
 app.get('/api/shoes/size/:size', apiRoutes.filteredBySize);
 app.get('/api/shoes/brand/:brandname/size/:size', apiRoutes.filteredByBrandSize);
-app.post('/api/shoes/sold/:id', apiRoutes.sellShoe);
+app.post('/api/shoes/sold/:id', apiRoutes.addToCart);
 app.post('/api/shoes/add', apiRoutes.addShoe);
 app.use(errorHandler);
 var PORT = process.env.PORT || 3010;

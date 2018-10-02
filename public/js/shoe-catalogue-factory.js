@@ -14,8 +14,7 @@ function ShoeCatalogue() {
   function addItem(params){
     return axios.post('/api/shoes/add', params)
   }
-  function sellItem(id){
-    //console.log(id)
+  function addCartItem(id){
     return axios.post(`/api/shoes/sold/${id}`)
   }
 
@@ -25,6 +24,6 @@ function ShoeCatalogue() {
     filterSize: getSize,
     filteredShoes: filterShoes,
     addStockItem: addItem,
-    removeStockItem: sellItem
+    addItemToCart: addCartItem
   }
 }
