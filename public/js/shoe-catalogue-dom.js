@@ -107,11 +107,10 @@ cartButton.addEventListener('click', function () {
   shoeCatalogue.shoesInCart()
   .then(results => {
     insertShoppingCartElement.innerHTML = templateShoppingCart({
-      shoes: results.data.items
+      cartShoes: results.data.items
     });
   })
-  
-  console.log('here')
+
 
 });
 function addToCart(id) {
