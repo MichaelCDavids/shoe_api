@@ -92,36 +92,30 @@ function renderTemplate(results) {
   });
 };
 stockButton.addEventListener("click", function () {
+  insertSearchDataElement.innerHTML = "";
+  insertShoppingCartElement.innerHTML = "";
   shoeCatalogue.shoesInStock()
     .then(results => {
       availableStockElement.innerHTML = templateCatalogue({
         shoes: results.data.items
       });
     })
-    insertSearchDataElement.innerHTML = "";
 });
 cartButton.addEventListener('click', function () {
-  insertShoppingCartElement.innerHTML = templateShoppingCart({
-    cartShoes: shoeCatalogue.Cart(),
-    total: shoeCatalogue.cartTotal()
-  });
   insertSearchDataElement.innerHTML = "";
   availableStockElement.innerHTML = "";
+  shoeCatalogue.shoesInCart()
+  .then(results => {
+    insertShoppingCartElement.innerHTML = templateShoppingCart({
+      shoes: results.data.items
+    });
+  })
+  
+  console.log('here')
+
 });
 function addToCart(id) {
-  shoeCatalogue.addItemToCart(id)
-  
-
-  // .addCart(id);
-  // if (location.hash === "#home" || location.hash === "#stock") {
-  //   availableStockElement.innerHTML = templateCatalogue({
-  //     shoes: shoeCatalogue.shoesInStock()
-  //   });
-  // } else if (location.hash === "#search") {
-  //   insertSearchDataElement.innerHTML = templateShoeCatalogue({
-  //     scannedShoes: shoeCatalogue.filteredShoes(colorSelector.value, Number(sizeSelector.value), brandSelector.value)
-  //   });
-  // }
+  shoeCatalogue.addItemToCart(id);  
 };
 
 function removeFromCart(id) {

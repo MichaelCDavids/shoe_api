@@ -20,44 +20,19 @@ module.exports = function ShoesService(pool) {
         const insertShoeQuery = 'insert into shoes (brand, price, color, size, in_stock) values ($1, $2, $3, $4, $5)';
         await pool.query(insertShoeQuery, shoeDataList);
     };
-
     async function addShoeToCart(shoeID) {
-        // console.log('from shoes-service: '+shoeID.id);
         let foundShoe = await pool.query('select * from shoes where id=$1', [shoeID.id]);
         let shoe = foundShoe.rows[0];
-        // if(foundShoe.in_stock>0){
-        //     await pool.query('insert into cart (shoe_id=$1,brand=$2, price, color, size, qty) values (foundShoe.id, foundShoe.brand, foundShoe.price, foundShoe.color, foundShoe.size);');
-        // }
-        let isThere = false;
         if (shoe.in_stock > 0) {
-            
-            shoppingCart.map((current) => {
-                if (current.id === id) {
-                    current.qty += 1;
-                    isThere = true;
-                };
-            });
-
-        //     if (!isThere) {
-        //         shoppingCart.push({
-        //             id: foundItem.id,
-        //             color: foundItem.color,
-        //             brand: foundItem.brand,
-        //             price: foundItem.price,
-        //             size: foundItem.size,
-        //             qty: 1
-        //         });
-        //     };
-
-        //     shoes.map((current) => {
-        //         if (current.id === id) {
-        //             current.in_stock -= 1;
-        //         };
-        //     });
-         };
+            await pool.query('insert into cart (shoe_id, brand, price, color, size, qty) values ($1, $2, $3, $4, $5,$6)', [shoe.id, shoe.brand, shoe.price, shoe.color, shoe.size, 0]);
+        }
+        await pool.query('update shoes set in_stock=in_stock-1 where id=$1', [shoe.id]);
+        await pool.query('update cart set qty=qty+1 where shoe_id=$1', [shoe.id])
     };
-
-
+    async function getCart() {
+        let results = await pool.query(`select * from cart`);
+        return results.rows;
+    };
 
     return {
         shoesInStock: getShoes,
@@ -65,6 +40,7 @@ module.exports = function ShoesService(pool) {
         allSize: filterSize,
         allBrandSize: filterBrandSize,
         addStockItem: addStock,
-        addToCart: addShoeToCart
+        addToCart: addShoeToCart,
+        shoesInCart: getCart
     }
 }

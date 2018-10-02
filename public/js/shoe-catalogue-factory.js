@@ -17,6 +17,9 @@ function ShoeCatalogue() {
   function addCartItem(id){
     return axios.post(`/api/shoes/sold/${id}`)
   }
+  function getCart() {
+    return axios.get('/api/shoes/cart');
+  }
 
   return {
     shoesInStock: getShoes,
@@ -24,6 +27,7 @@ function ShoeCatalogue() {
     filterSize: getSize,
     filteredShoes: filterShoes,
     addStockItem: addItem,
-    addItemToCart: addCartItem
+    addItemToCart: addCartItem,
+    shoesInCart: getCart
   }
 }

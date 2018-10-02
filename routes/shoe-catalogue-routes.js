@@ -65,9 +65,20 @@ module.exports = function(shoesService) {
 	async function addToCart (req, res) {
 		try {
 			let shoeID = req.params;
-			console.log(shoeID);
 			await shoesService.addToCart(shoeID); 
 			let results = await shoesService.shoesInStock();
+			res.json({status: 'success', items: results})
+		}
+		catch (err) {
+			res.json({
+				status: 'error',
+				error: err.stack
+			})
+		}
+	};
+	async function showCart(req, res) {
+		try {
+			let results = await shoesService.shoesInCart()
 			res.json({status: 'success', items: results})
 		}
 		catch (err) {
@@ -84,6 +95,7 @@ module.exports = function(shoesService) {
 		filteredByBrand,
 		filteredByBrandSize,
 		addShoe,
-		addToCart
+		addToCart,
+		showCart
 	}
 }
