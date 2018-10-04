@@ -21,6 +21,13 @@ function ShoeCatalogue() {
     return axios.get('/api/shoes/cart');
   }
 
+  function removeFromCart(id){
+    return axios.post(`api/shoes/cart/remove/${id}`)
+  }
+  function checkout(){
+    return axios.post(`api/shoes/cart/checkout`)
+  }
+
   return {
     shoesInStock: getShoes,
     filterBrand: getBrand,
@@ -28,6 +35,8 @@ function ShoeCatalogue() {
     filteredShoes: filterShoes,
     addStockItem: addItem,
     addItemToCart: addCartItem,
-    shoesInCart: getCart
+    shoesInCart: getCart,
+    removeFromCart,
+    checkout
   }
 }

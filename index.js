@@ -44,6 +44,9 @@ function errorHandler(err, req, res, next) {
         error: err
     });
 }
+
+
+
 app.get('/api/shoes', apiRoutes.showAll);
 app.get('/api/shoes/brand/:brandname', apiRoutes.filteredByBrand);
 app.get('/api/shoes/size/:size', apiRoutes.filteredBySize);
@@ -51,6 +54,13 @@ app.get('/api/shoes/brand/:brandname/size/:size', apiRoutes.filteredByBrandSize)
 app.post('/api/shoes/sold/:id', apiRoutes.addToCart);
 app.post('/api/shoes/add', apiRoutes.addShoe);
 app.get('/api/shoes/cart', apiRoutes.showCart);
+app.post('/api/shoes/cart/checkout', apiRoutes.checkout);
+
+
+
+
+
+
 app.use(errorHandler);
 var PORT = process.env.PORT || 3010;
 app.listen(PORT, function () {

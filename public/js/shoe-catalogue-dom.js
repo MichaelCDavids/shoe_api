@@ -45,7 +45,6 @@ searchButton.addEventListener('click', function () {
   let size = Number(sizeSelector.value);
   search(size, brand);
 });
-
 function search(size, brand) {
   if (brand === '' && size === 0) {
     shoeCatalogue.shoesInStock()
@@ -84,7 +83,6 @@ addButton.addEventListener('click', function () {
       }
     });
 });
-
 function renderTemplate(results) {
   availableStockElement.innerHTML = "";
   insertSearchDataElement.innerHTML = templateShoeCatalogue({
@@ -114,46 +112,26 @@ cartButton.addEventListener('click', function () {
 
 });
 function addToCart(id) {
-  shoeCatalogue.addItemToCart(id);  
+  shoeCatalogue.addItemToCart(id)
+  .then(results => {
+    availableStockElement.innerHTML = templateCatalogue({
+      shoes: results.data.items
+    });
+  }) 
 };
-
 function removeFromCart(id) {
-  shoeCatalogue.Remove(id);
-  if (location.hash === "#cart") {
+  shoeCatalogue.removeFromCart(id)
+  .then(results => {
     insertShoppingCartElement.innerHTML = templateShoppingCart({
-      cartShoes: shoeCatalogue.Cart(),
-      total: shoeCatalogue.cartTotal()
+      cartShoes: results.data.items
     });
-    // availableStockElement.innerHTML = templateCatalogue({shoes : shoeCatalogue.shoesInStock()});
-  }
-  localStorage.setItem('Cart', JSON.stringify(shoeCatalogue.Cart()));
-  localStorage.setItem('Shoes', JSON.stringify(shoeCatalogue.shoesInStock()));
+  })
 };
-
 function checkout() {
-  shoeCatalogue.Checkout();
-  if (location.hash === "#home") {
-    localStorage.removeItem('Cart');
-    localStorage.setItem("Shoes", JSON.stringify(shoeCatalogue.shoesInStock()))
-    insertShoppingCartElement.innerHTML = "";
-    availableStockElement.innerHTML = templateCatalogue({
-      shoes: shoeCatalogue.shoesInStock()
-    });
-    location.hash = "home";
-  } else if (location.hash === "#stock") {
-    localStorage.removeItem('Cart');
-    shoeCatalogue.Checkout();
-    localStorage.setItem("Shoes", JSON.stringify(shoeCatalogue.shoesInStock()))
-    availableStockElement.innerHTML = templateCatalogue({
-      shoes: shoeCatalogue.shoesInStock()
-    });
-  } else if (location.hash === "#cart") {
-    localStorage.removeItem('Cart');
-    shoeCatalogue.Checkout();
-    localStorage.setItem("Shoes", JSON.stringify(shoeCatalogue.shoesInStock()))
+  shoeCatalogue.checkout()
+  .then(results => {
     insertShoppingCartElement.innerHTML = templateShoppingCart({
-      cartShoes: shoeCatalogue.Cart(),
-      total: shoeCatalogue.cartTotal()
+      cartShoes: results.data.items
     });
-  }
+  })
 };

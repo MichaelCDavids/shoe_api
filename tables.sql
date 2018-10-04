@@ -1,4 +1,4 @@
-drop table if exists shoes;
+drop table if exists shoes, cart;
 create table shoes(
 	id serial not null primary key,
 	brand text not null,

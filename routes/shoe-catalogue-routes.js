@@ -1,4 +1,4 @@
-module.exports = function(shoesService) {	
+module.exports = function(shoesService, cartService) {	
 	async function showAll(req, res) {
 		try {
 			let results = await shoesService.shoesInStock(); 
@@ -65,7 +65,7 @@ module.exports = function(shoesService) {
 	async function addToCart (req, res) {
 		try {
 			let shoeID = req.params;
-			await shoesService.addToCart(shoeID); 
+			await cartService.addToCart(shoeID); 
 			let results = await shoesService.shoesInStock();
 			res.json({status: 'success', items: results})
 		}
@@ -78,7 +78,36 @@ module.exports = function(shoesService) {
 	};
 	async function showCart(req, res) {
 		try {
-			let results = await shoesService.shoesInCart()
+			let results = await cartService.cartShoes()
+			res.json({status: 'success', items: results})
+		}
+		catch (err) {
+			res.json({
+				status: 'error',
+				error: err.stack
+			})
+		}
+	};
+	async function removeFromCart(req, res) {
+		try {
+			let shoeID = req.params;
+			
+			await cartService.removeFromCart(shoeID.id)
+			let results = await cartService.cartShoes()
+			res.json({status: 'success', items: results})
+		}
+		catch (err) {
+			res.json({
+				status: 'error',
+				error: err.stack
+			})
+		}
+	};
+	async function checkout(req, res) {
+		try {
+			
+			await cartService.checkout()
+			let results = await cartService.cartShoes()
 			res.json({status: 'success', items: results})
 		}
 		catch (err) {
@@ -96,6 +125,8 @@ module.exports = function(shoesService) {
 		filteredByBrandSize,
 		addShoe,
 		addToCart,
-		showCart
+		showCart,
+		removeFromCart,
+		checkout
 	}
 }
