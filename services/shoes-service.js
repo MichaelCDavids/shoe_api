@@ -20,12 +20,26 @@ module.exports = function ShoesService(pool) {
         const insertShoeQuery = 'insert into shoes (brand, price, color, size, in_stock) values ($1, $2, $3, $4, $5)';
         await pool.query(insertShoeQuery, shoeDataList);
     };
+    async function getBrands(){
+        let brands = await pool.query('select * from brands order by brand_name asc');
+        return brands.rows;
+    };
+    async function getSizes(){
+        let sizes = await pool.query('select * from sizes order by size asc');
+        return sizes.rows;
+    };
+    async function getColors(){
+        let colors = await pool.query('select * from colors order by color_name asc');
+        return colors.rows;
+    };
     return {
         shoesInStock: getShoes,
         allBrand: filterBrand,
         allSize: filterSize,
         allBrandSize: filterBrandSize,
-        addStockItem: addStock
-        //shoesInCart: getCart
+        addStockItem: addStock,
+        getBrands,
+        getColors,
+        getSizes
     }
 }

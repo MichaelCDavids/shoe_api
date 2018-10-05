@@ -1,43 +1,53 @@
-var brandSelector = document.querySelector(".brand");
-var sizeSelector = document.querySelector(".size");
 var searchButton = document.querySelector("#search-button");
-
 var addColor = document.querySelector(".addColor");
 var addBrand = document.querySelector(".addBrand");
 var addPrice = document.querySelector(".addPrice");
 var addSize = document.querySelector(".addSize");
 var addStock = document.querySelector(".addStock");
 var addButton = document.querySelector("#add-button");
-
-// var checkoutButton = document.querySelector("#checkout-button");
 var stockButton = document.querySelector("#stock-button");
 var cartButton = document.querySelector("#show-button");
 
-//Template for available stock
 var availableStockTemplateSource = document.querySelector(".availableStockTemplate").innerHTML;
 var templateCatalogue = Handlebars.compile(availableStockTemplateSource);
 var availableStockElement = document.querySelector(".insertAvailableStockElement");
 
-//Template for search results
 var templateSource = document.querySelector(".afterSearchTemplate").innerHTML;
 var templateShoeCatalogue = Handlebars.compile(templateSource);
 var insertSearchDataElement = document.querySelector(".insertSearchDataElement");
 
-//Template for shoppingCart
 var templateSource = document.querySelector(".shoppingCartTemplate").innerHTML;
 var templateShoppingCart = Handlebars.compile(templateSource);
 var insertShoppingCartElement = document.querySelector(".insertShoppingCartElement");
 
-//instance of the factory function
-const shoeCatalogue = ShoeCatalogue();
+var brandSource = document.querySelector(".brandDropdown").innerHTML;
+var brandTemplate = Handlebars.compile(brandSource);
+var brandSelector = document.querySelector(".brand");
 
-//on page load event
+var colorSource = document.querySelector(".colorDropdown").innerHTML;
+var colorTemplate = Handlebars.compile(colorSource);
+var colorSelector = document.querySelector(".color")
+var sizeSource = document.querySelector(".sizeDropdown").innerHTML;
+var sizeTemplate = Handlebars.compile(sizeSource);
+var sizeSelector = document.querySelector(".size");
+
+const shoeCatalogue = ShoeCatalogue();
 window.addEventListener('load', function () {
   shoeCatalogue.shoesInStock()
     .then(results => {
       availableStockElement.innerHTML = templateCatalogue({
         shoes: results.data.items
       });
+      brandSelector.innerHTML = brandTemplate({
+        brands: results.data.brands
+      });
+      colorSelector.innerHTML = colorTemplate({
+        colors: results.data.colors
+      });
+      sizeSelector.innerHTML = sizeTemplate({
+        sizes: results.data.sizes
+      });
+
     })
 });
 searchButton.addEventListener('click', function () {
@@ -86,7 +96,7 @@ addButton.addEventListener('click', function () {
 function renderTemplate(results) {
   availableStockElement.innerHTML = "";
   insertSearchDataElement.innerHTML = templateShoeCatalogue({
-    scannedShoes: results.data.items
+    searchResults: results.data.items
   });
 };
 stockButton.addEventListener("click", function () {
@@ -112,12 +122,13 @@ cartButton.addEventListener('click', function () {
 
 });
 function addToCart(id) {
+  insertSearchDataElement.innerHTML = "";
   shoeCatalogue.addItemToCart(id)
   .then(results => {
     availableStockElement.innerHTML = templateCatalogue({
       shoes: results.data.items
     });
-  }) 
+  }); 
 };
 function removeFromCart(id) {
   shoeCatalogue.removeFromCart(id)
