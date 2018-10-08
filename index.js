@@ -4,9 +4,9 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const flash = require('express-flash');
-const CartService = require('./services/cart-service');
-const ShoesService = require('./services/shoes-service');
-const APIroutes = require('./routes/shoe-catalogue-routes');
+const CartService = require('./services/cart-factory');
+const ShoesService = require('./services/shoes-factory');
+const APIroutes = require('./routes/shoe-api-routes');
 const app = express();
 const pg = require("pg");
 const Pool = pg.Pool;
@@ -44,15 +44,25 @@ function errorHandler(err, req, res, next) {
         error: err
     });
 }
-app.get('/api/shoes', apiRoutes.showAll);
-app.get('/api/shoes/brand/:brandname', apiRoutes.filteredByBrand);
-app.get('/api/shoes/size/:size', apiRoutes.filteredBySize);
-app.get('/api/shoes/brand/:brandname/size/:size', apiRoutes.filteredByBrandSize);
-app.post('/api/shoes/sold/:id', apiRoutes.addToCart);
-app.post('/api/shoes/add', apiRoutes.addShoe);
+app.get('/api/shoes', apiRoutes.allShoes);
 app.get('/api/shoes/cart', apiRoutes.showCart);
+
+app.get('/api/shoes/brand/:brandname', apiRoutes.filterByBrand);
+app.get('/api/shoes/size/:size', apiRoutes.filterBySize);
+app.get('/api/shoes/color/:color', apiRoutes.filterByColor);
+app.get('/api/shoes/brand/:brandname/size/:size', apiRoutes.filterByBrandSize);
+app.get('/api/shoes/brand/:brandname/size/:size/:color', apiRoutes.filterByBrandSizeColor);
+
+app.post('/api/shoes/add', apiRoutes.addShoe);
+
+app.post('/api/shoes/sold/:id', apiRoutes.addToCart);
 app.post('/api/shoes/cart/remove/:id', apiRoutes.removeFromCart);
 app.post('/api/shoes/cart/checkout', apiRoutes.checkout);
+
+
+
+
+
 app.use(errorHandler);
 var PORT = process.env.PORT || 3010;
 app.listen(PORT, function () {

@@ -1,0 +1,74 @@
+
+body{
+    background-color: lightgrey;
+}
+
+.container{
+    width: 95%;
+    margin: 0 auto;
+    background-color: ghostwhite;
+}
+
+
+.header{
+    text-align: center;
+    color: beige;
+    width: 100%;
+    height: 1%;
+    padding: 10px 0px;
+    margin: 0 auto;
+    background-color: crimson;
+}
+
+
+.search-area{
+
+}
+.dropDownOne{
+    
+}
+.dropDownTwo{
+    
+}
+.dropDownThree{
+    
+}
+
+.add-area{
+        
+}
+.dropDownFour{
+    
+}
+.dropDownFive{
+    
+}
+.dropDownSix{
+    
+}
+
+.buttons{
+
+}
+
+.shopping-cart{
+
+}
+
+.search-results{
+
+}
+
+.available-stock{
+
+}
+
+.footer{
+    text-align: center;
+    color: beige;
+    width: 100%;
+    height: 1%;
+    padding: 10px 0px;
+    margin: 0 auto;
+    background-color: crimson;
+}

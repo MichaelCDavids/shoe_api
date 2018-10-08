@@ -1,41 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
-  <title>Shoe Catalogue | M Davids</title>
-  <meta name="description" content="A simple online shoe catalogue">
+  <title>Shoe-API</title>
+  <meta name="description" content="shoe-catalogue-api">
   <meta name="author" content="Michael Davids">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
-
-
-
   <script type="text/x-template" class="availableStockTemplate">
-    <h4>Available Shoes</h4>
-    <div class="">
+    <h4>Browse Through Our Catalogue</h4>
+    <div class="stockDisplay">
       {{#each shoes}}
-        <div class="">
-          <table>
-            <tr>
-              <td>Brand:</td><td>{{brand}}</td>
-            </tr>
-            <tr>
-              <td>Shoe Size:</td><td>{{size}}</td>
-            </tr>
-            <tr>
-              <td>Color:</td><td>{{color}}</td>
-            </tr>
-            <tr>
-              <td>Price:</td><td>{{price}}</td>
-            </tr>
-            <tr>
-              <td>In Stock:</td><td>{{in_stock}}</td>
-            </tr>
-          </table>
-          <button onclick="addToCart({{this.id}})" type="button" name="button">add cart</button>
-        </div>
+      <div class="shoe">
+        <table>
+          <tr>
+            <td>Brand:</td><td>{{brand_name}}</td>
+          </tr>
+          <tr>
+            <td>Shoe Size:</td><td>{{size}}</td>
+          </tr>
+          <tr>
+            <td>Color:</td><td>{{color_name}}</td>
+          </tr>
+          <tr>
+            <td>Price:</td><td>{{price}}</td>
+          </tr>
+          <tr>
+            <td>In Stock:</td><td>{{in_stock}}</td>
+          </tr>
+        </table>
+        <button onclick="addToCart({{this.id}})" type="button" name="button">Add To Cart</button>
+      </div>
       {{/each}}
     </div>
   </script>
@@ -43,158 +39,144 @@
     <h5>Cart</h5>
     <table>
       <tr class="">
-        <td class="">Total Cost:</td><td class="">{{total}}</td>
+        <td class="">Total Cost:</td><td class="">{{total.sum}}</td>
       </tr>
     </table>
-    <div class="">
     {{#each cartShoes}}
-      <div class="">
-        <table>
-          <tr>
-            <td>Brand:</td><td>{{brand}}</td>
-          </tr>
-          <tr>
-            <td>Shoe Size:</td><td>{{size}}</td>
-          </tr>
-          <tr>
-            <td>Color:</td><td>{{color}}</td>
-          </tr>
-          <tr>
-            <td>Price:</td><td>{{price}}</td>
-          </tr>
-          <tr>
-            <td>Qty:</td><td>{{qty}}</td>
-          </tr>
-       </table>
-       <button onclick="removeFromCart({{this.shoe_id}})" type="button" name="remove">remove</button>
-       {{/each}}
-      </div>      
+      <table>
+        <tr>
+          <td>Brand:</td><td>{{brand_name}}</td>
+        </tr>
+        <tr>
+          <td>Shoe Size:</td><td>{{size}}</td>
+        </tr>
+        <tr>
+          <td>Color:</td><td>{{color_name}}</td>
+        </tr>
+        <tr>
+          <td>Price:</td><td>{{price}}</td>
+        </tr>
+        <tr>
+          <td>Qty:</td><td>{{qty}}</td>
+        </tr>
+      </table>
+      <button onclick="removeFromCart({{this.shoe_id}})" type="button" name="remove">remove</button>
+    {{/each}}     
     <button onclick="checkout()" type="button" name="checkout">checkout</button>
   </script>
   <script type="text/x-template" class="afterSearchTemplate">
-    <h5>Search Results</h5>
-    {{#each searchResults}}
-      <div class="">
-        <table>
-          <tr>
-            <td>Brand:</td><td>{{brand}}</td>
-          </tr>
-          <tr>
-            <td>Color:</td><td>{{color}}</td>
-          </tr>
-          <tr>
-            <td>Shoe Size:</td><td>{{size}}</td>
-          </tr>
-          <tr>
-            <td>Stock Left:</td><td>{{in_stock}}</td>
-          </tr>
-          <tr>
-            <td>Price:</td><td>{{price}}</td>
-          </tr>
-        </table>
-        <button onclick="addToCart({{this.id}})" type="button" name="button">add</button>
-      </div>
-    {{/each}}
+  <h5>Search Results</h5>
+  {{#each searchResults}}
+  <div class="">
+  <table>
+  <tr>
+  <td>Brand:</td><td>{{brand_name}}</td>
+  </tr>
+  <tr>
+  <td>Color:</td><td>{{color_name}}</td>
+  </tr>
+  <tr>
+  <td>Shoe Size:</td><td>{{size}}</td>
+  </tr>
+  <tr>
+  <td>Stock Left:</td><td>{{in_stock}}</td>
+  </tr>
+  <tr>
+  <td>Price:</td><td>{{price}}</td>
+  </tr>
+  </table>
+  <button onclick="addToCart({{this.id}})" type="button" name="button">add</button>
+  </div>
+  {{/each}}
   </script>
   <script type="text/x-template" class="brandDropdown">
-    <select name="brand">
-        {{#each brands}}
-          <option value="{{this.id}}">{{this.brand_name}}</option>
-        {{/each}}  
-    </select>
-    
+    {{#each brands}}
+    <option value="{{this.id}}">{{this.brand_name}}</option>
+    {{/each}}  
   </script>
   <script type="text/x-template" class="colorDropdown">
 
-    <select name="color" id="">
-        {{#each colors}}
-          <option value="{{this.id}}">{{this.color_name}}</option>
-        {{/each}}
-    </select> 
-    
+  <select name="color" id="">
+  {{#each colors}}
+  <option value="{{this.id}}">{{this.color_name}}</option>
+  {{/each}}
+  </select> 
+
   </script>
   <script type="text/x-template" class="sizeDropdown">
-    <select name="size" id="">
-        {{#each sizes}}
-          <option value="{{this.id}}">{{this.size}}</option>
-        {{/each}}
-    </select>
+  <select name="size" id="">
+  {{#each sizes}}
+  <option value="{{this.id}}">{{this.size}}</option>
+  {{/each}}
+  </select>
   </script>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
-
 <body>
-    <div class="row search-area">
-      <div class="brand"></div>
-      <div class="color"></div>
-      <div class="size"></div>
-      <button id="search-button" type="button" name="search">Search</button>
-    </div>
-    <div class="row add-area">
-      <select class="addBrand" name="addBrand">
-        <option value="Adidas">Adidas</option>
-        <option value="Asics">Asics</option>
-        <option value="Caterpillar">Caterpillar</option>
-        <option value="Converse">Converse</option>
-        <option value="DC Shoes">DC Shoes</option>
-        <option value="Etnies">Etnies</option>
-        <option value="Fila">Fila</option>
-        <option value="Nike">Nike</option>
-        <option value="New Balance">New Balance</option>
-        <option value="Lacoste">Lacoste</option>
-        <option value="Puma">Puma</option>
-        <option value="Timberland">Timberland</option>
-        <option value="Vans">Vans</option>
-        <option value="Reebok">Reebok</option>
-      </select>
-      <select class="addSize" name="addSize">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option>
-        <option value="13">13</option>
-        <option value="14">14</option>
-        <option value="15">15</option>
-      </select>
-      <select class="addColor" name="addColor">
-        <option value="azure">Azure</option>
-        <option value="beige">Beige</option>
-        <option value="black">Black</option>
-        <option value="brown">Brown</option>
-        <option value="green">Green</option>
-        <option value="grey">Grey</option>
-        <option value="gold">Gold</option>
-        <option value="navy">Navy</option>
-        <option value="orange">Orange</option>
-        <option value="olive">Olive</option>
-        <option value="pink">Pink</option>
-        <option value="powderblue">Powder Blue</option>
-        <option value="purple">Purple</option>
-        <option value="red">Red</option>
-        <option value="slategray">Slate Gray</option>
-        <option value="snow">Snow</option>
-        <option value="white">White</option>
-      </select>
-      <input type="number" name="addPrice" class="addPrice" placeholder="Item Price">
-      <input type="number" name="addstock" class="addStock" placeholder="Amount In Stock">
-      <button id="add-button" type="submit" name="add">Add</button>
-    </div>
-    <div class="buttons">
-      <button id="stock-button" type="button" name="stock">Stock</button>
-      <button id="show-button" type="button" name="show">Cart</button>
-    </div>
-    <div class="row shopping-cart"><div class="twelve columns insertShoppingCartElement"></div></div>
-    <div class="row search-results"><div class="twelve columns insertSearchDataElement"></div></div>
-    <div class="row available-stock"><div class="twelve columns insertAvailableStockElement stock"></div></div>
+  <div class="container">
+      <div class="header"><h2>Header Scection</h2></div>
+      <div style="height:50px;"></div>
+      <div class="row search-area">
+          <p>search through the database to find a shoe you like</p>
+        <div class="dropDownOne">
+            <select class="brand" name="brandSelector">
+    
+            </select>
+        </div>
+        <div class="dropDownTwo">
+            <select class="color" name="colorSelector">
+    
+            </select>
+        </div>
+        <div class="dropDownThree">
+            <select class="size" name="sizeSelector">
+    
+            </select>
+        </div>
+        <button id="search-button" type="button" name="search">Search</button>
+      </div>
+      <div style="height:50px;"></div>
+      <div class="row add-area">
+        <p>enter shoe details to add it to the database</p>
+        <div class="dropDownFour">
+            <select class="addBrand" name="addBrand">
+            </select>
+        </div>
+        <div class="dropDownFive">
+            <select class="addColor" name="addColor">
+            </select>
+        </div>
+        <div class="dropDownSix">
+            <select class="addSize" name="addSize">
+            </select>
+        </div>
+        <input type="number" name="addPrice" class="addPrice" placeholder="Unit Price">
+        <input type="number" name="addstock" class="addStock" placeholder="Stock Quantity">
+        <button id="add-button" type="submit" name="add">Add Stock</button>
+      </div>
+      <div style="height:50px;"></div>
+      <div class="buttons">
+        <button id="stock-button" type="button" name="stock">Show Stock</button>
+        <button id="show-button" type="button" name="show">Show Cart</button>
+      </div>
+      <div style="height:50px;"></div>
+      <div class="row shopping-cart">
+        <div class="insertShoppingCartElement"></div>
+      </div>
+      <div class="row search-results">
+        <div class="insertSearchDataElement"></div>
+      </div>
+      <div class="row available-stock">
+        <div class="insertAvailableStockElement stock"></div>
+      </div>
+      <div style="height:50px;"></div>
+      <div class="footer"><h2>Footer Section</h2></div>
   </div>
+
+
+
 </body>
-  <script src="js/shoe-catalogue-factory.js" charset="utf-8"></script>
-  <script src="js/shoe-catalogue-dom.js" charset="utf-8"></script>
+<script src="js/shoe-api.js" charset="utf-8"></script>
+<script src="js/shoe-catalogue-dom.js" charset="utf-8"></script>
+
 </html>

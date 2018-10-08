@@ -1,7 +1,7 @@
 module.exports = function (shoesService, cartService) {
-	async function showAll(req, res) {
+	async function allShoes(req, res) {
 		try {
-			let results = await shoesService.shoesInStock();
+			let results = await shoesService.getShoes();
 			let brands = await shoesService.getBrands();
 			let colors = await shoesService.getColors();
 			let sizes = await shoesService.getSizes();
@@ -19,22 +19,7 @@ module.exports = function (shoesService, cartService) {
 			})
 		}
 	};
-	async function filteredBySize(req, res) {
-		try {
-			let size = req.params.size
-			let results = await shoesService.allSize(size);
-			res.json({
-				status: 'success',
-				items: results
-			})
-		} catch (err) {
-			res.json({
-				status: 'error',
-				error: err.stack
-			})
-		}
-	};
-	async function filteredByBrand(req, res) {
+	async function filterByBrand(req, res) {
 		try {
 			let brand = req.params.brandname
 			let results = await shoesService.allBrand(brand);
@@ -49,11 +34,59 @@ module.exports = function (shoesService, cartService) {
 			})
 		}
 	};
-	async function filteredByBrandSize(req, res) {
+	async function filterByColor(req, res) {
+		try {
+			let color = req.params.color
+			let results = await shoesService.allColor(color);
+			res.json({
+				status: 'success',
+				items: results
+			})
+		} catch (err) {
+			res.json({
+				status: 'error',
+				error: err.stack
+			})
+		}
+	};
+	async function filterBySize(req, res) {
+		try {
+			let size = req.params.size
+			let results = await shoesService.allSize(size);
+			res.json({
+				status: 'success',
+				items: results
+			})
+		} catch (err) {
+			res.json({
+				status: 'error',
+				error: err.stack
+			})
+		}
+	};
+
+	async function filterByBrandSize(req, res) {
 		try {
 			let brand = req.params.brandname
 			let size = req.params.size
 			let results = await shoesService.allBrandSize(size, brand);
+			res.json({
+				status: 'success',
+				items: results
+			})
+		} catch (err) {
+			res.json({
+				status: 'error',
+				error: err.stack
+			})
+		}
+	};
+	async function filterByBrandSizeColor(req, res) {
+		try {
+			let brand = req.params.brandname;
+			let size = req.params.size;
+			let color = req.params.color;
+			let results = await shoesService.allBrandSize(size, brand, color);
 			res.json({
 				status: 'success',
 				items: results
@@ -78,11 +111,27 @@ module.exports = function (shoesService, cartService) {
 
 		}
 	};
+	async function showCart(req, res) {
+		try {
+			let results = await cartService.cartShoes();
+			let sum = await cartService.cartTotal();
+			res.json({
+				status: 'success',
+				items: results,
+				sum : sum
+			})
+		} catch (err) {
+			res.json({
+				status: 'error',
+				error: err.stack
+			})
+		}
+	};
 	async function addToCart(req, res) {
 		try {
 			let shoeID = req.params;
 			await cartService.addToCart(shoeID);
-			let results = await shoesService.shoesInStock();
+			let results = await shoesService.getShoes();
 			res.json({
 				status: 'success',
 				items: results
@@ -94,29 +143,19 @@ module.exports = function (shoesService, cartService) {
 			})
 		}
 	};
-	async function showCart(req, res) {
-		try {
-			let results = await cartService.cartShoes()
-			res.json({
-				status: 'success',
-				items: results
-			})
-		} catch (err) {
-			res.json({
-				status: 'error',
-				error: err.stack
-			})
-		}
-	};
+	
 	async function removeFromCart(req, res) {
 		try {
 			let shoeID = req.params;
-
-			await cartService.removeFromCart(shoeID.id)
-			let results = await cartService.cartShoes()
+			await cartService.removeFromCart(shoeID.id);
+			let results = await cartService.cartShoes();
+			console.log(results);
+			let sum = await cartService.cartTotal();
+			console.log(sum);
 			res.json({
 				status: 'success',
-				items: results
+				items: results,
+				sum: sum
 			})
 		} catch (err) {
 			res.json({
@@ -142,13 +181,19 @@ module.exports = function (shoesService, cartService) {
 		}
 	};
 	return {
-		showAll,
-		filteredBySize,
-		filteredByBrand,
-		filteredByBrandSize,
+		allShoes,
+
+		filterByBrand,
+		filterByColor,
+		filterBySize,
+
+		filterByBrandSize,
+		filterByBrandSizeColor,
+
 		addShoe,
-		addToCart,
+
 		showCart,
+		addToCart,
 		removeFromCart,
 		checkout
 	}
