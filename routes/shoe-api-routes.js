@@ -184,11 +184,8 @@ module.exports = function (shoesService, cartService) {
 		allShoes,
 
 		filterByBrand,
-		filterByColor,
 		filterBySize,
-
 		filterByBrandSize,
-		filterByBrandSizeColor,
 
 		addShoe,
 

@@ -48,9 +48,6 @@ window.addEventListener('load', function () {
       brandSelector.innerHTML = brandTemplate({
         brands: results.data.brands
       });
-      colorSelector.innerHTML = colorTemplate({
-        colors: results.data.colors
-      });
       sizeSelector.innerHTML = sizeTemplate({
         sizes: results.data.sizes
       });
@@ -68,26 +65,22 @@ window.addEventListener('load', function () {
 searchButton.addEventListener('click', function () {
   let brand = brandSelector.value;
   let size = sizeSelector.value;
-  let color = colorSelector.value;
-  search(size, brand, color);
+  search(size, brand);
 });
-function search(size, brand, color) {
-  if (brand === '' && size < 1 && color === '') {
-    shoeCatalogue.shoesInStock()
+function search(size, brand) {
+  if (brand === '' && size !== 0) {
+    shoeCatalogue.stockShoes()
       .then(results => renderTemplate(results))
-  } else if (brand !== '' && size !== 0) {
+  } else if (brand !== 0 && size !== 0) {
     shoeCatalogue.filterBrandSize(size, brand)
       .then(results => renderTemplate(results))
-  } else if (brand !== '') {
+  } else if (brand !== 0) {
     shoeCatalogue.filterBrand(brand)
       .then(results => renderTemplate(results))
   } else if (size !== 0) {
     shoeCatalogue.filterSize(size)
       .then(results => renderTemplate(results))
-  } else if (color !== 0) {
-    shoeCatalogue.filterColor(color)
-      .then(results => renderTemplate(results))
-  }
+  } 
 };
 addButton.addEventListener('click', function () {
   let params = {

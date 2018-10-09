@@ -17,18 +17,9 @@ function ShoeCatalogue() {
   function filterSize(size){
     return axios.get(`/api/shoes/size/${size}`);
   };
-  function filterColor(color){
-    return axios.get(`/api/shoes/color/${color}`);
-  };
-  function filterSizeColor(color, size){
-    return axios.get(`/api/shoes/size/${size}/color/${color}`);
-  }
   function filterBrandSize(brand, size) {
     return axios.get(`/api/shoes/brand/${brand}/size/${size}`);
   };
-  function filterAll(brand, size, color){
-    return axios.get(`/api/shoes/brand/${brand}/size/${size}/color/${color}`);
-  }
   function addItem(params){
     return axios.post('/api/shoes/add', params)
   };
@@ -45,20 +36,17 @@ function ShoeCatalogue() {
     return axios.post(`api/shoes/cart/checkout`)
   };
   return {
-    filterBrand,
-    filterSize,
-    filterColor,
-    filterSizeColor,
-    filterBrandSize,,
-    filterAll,
-
     stockShoes,
     stockBrands,
     stockSizes,
     stockColors,
 
 
-    filterShoes,
+    
+    filterBrand,
+    filterSize,
+    filterBrandSize,
+
     addItem,
     addItemToCart,
     cartShoes,
