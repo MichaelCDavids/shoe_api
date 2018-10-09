@@ -37,6 +37,10 @@ create table shoes(
 	foreign key (color) references colors(id),
 	foreign key (size) references sizes(id)
 );
+
+insert into shoes (brand,price,color,size,in_stock) values (1,1999.99,1,1,500);
+insert into shoes (brand,price,color,size,in_stock) values (2,1999.99,2,2,500);
+insert into shoes (brand,price,color,size,in_stock) values (3,1999.99,3,3,500);
 create table cart(
 	id serial not null primary key,
 	shoe_id int not null,
