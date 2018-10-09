@@ -24,25 +24,9 @@ module.exports = function ShoesService(pool) {
         let filteredSize = await pool.query('select * from shoes where size=$1 order by id asc', [size]);
         return filteredSize.rows;
     };
-    async function filterColor(color){
-        let filteredColor = await pool.query('select * from shoes where color=$1 order by id asc', [color]);
-        return filteredColor.rows
-    };
     async function filterBrandSize(size, brand) {
         let filteredBrandSize = await pool.query('select * from shoes where size=$1 and brand=$2 order by id asc', [size, brand]);
         return filteredBrandSize.rows;
-    };
-    async function filterBrandColor(brand, color){
-        let filteredBrandColor = await pool.query('select * from shoes where brand=$1 and color=$2', [brand, color]);
-        return filteredBrandColor.rows;
-    };
-    async function filterSizeColor(size,color){
-        let filteredSizeColor = await pool.query('select * from shoes where size=$1 and color=$2', [size, color]);
-        return filteredSizeColor.rows;
-    };
-    async function filterBrandSizeColor(size,color){
-        let filteredBrandSizeColor = await pool.query('select * from shoes where brand=$1 and size=$2 and color=$3', [brand, size, color]);
-        return filteredBrandSizeColor.rows;
     };
     async function addStock(shoeData) {
         const shoeDataList = [shoeData.brand, shoeData.price, shoeData.color, shoeData.size, shoeData.in_stock];
@@ -57,12 +41,8 @@ module.exports = function ShoesService(pool) {
 
         filterBrand,
         filterSize,
-        filterColor,
         filterBrandSize,
-        filterBrandColor,
-        filterSizeColor,
-        filterBrandSizeColor,
-
+       
         addStockItem: addStock 
     };
 }
