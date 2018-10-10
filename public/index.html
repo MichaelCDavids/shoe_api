@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Shoe-API</title>
@@ -65,7 +66,7 @@
     <button onclick="checkout()" type="button" name="checkout">checkout</button>
   </script>
   <script type="text/x-template" class="afterSearchTemplate">
-  <h5>Search Results</h5>
+    <h5>Search Results</h5>
   {{#each searchResults}}
   <div class="">
   <table>
@@ -89,88 +90,81 @@
   </div>
   {{/each}}
   </script>
+
   <script type="text/x-template" class="brandDropdown">
+    <option value="">Select Brand</option>
     {{#each brands}}
     <option value="{{this.id}}">{{this.brand_name}}</option>
     {{/each}}  
   </script>
   <script type="text/x-template" class="colorDropdown">
-
-  <select name="color" id="">
-  {{#each colors}}
-  <option value="{{this.id}}">{{this.color_name}}</option>
-  {{/each}}
-  </select> 
-
+    <option value="">Select Color</option>
+    {{#each colors}}
+    <option value="{{this.id}}">{{this.color_name}}</option>
+    {{/each}}
   </script>
   <script type="text/x-template" class="sizeDropdown">
-  <select name="size" id="">
-  {{#each sizes}}
-  <option value="{{this.id}}">{{this.size}}</option>
-  {{/each}}
-  </select>
+      <option value="">Select Size</option>
+      {{#each sizes}}
+      <option value="{{this.id}}">{{this.size}}</option>
+      {{/each}}
   </script>
   <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
   <div class="container">
-      <div class="header"><h2>Header Scection</h2></div>
-      <div style="height:50px;"></div>
-      <div class="row search-area">
-          <p>search through the database to find a shoe you like</p>
-        <div class="dropDownOne">
-            <select class="brand" name="brandSelector">
-    
-            </select>
-        </div>
-        <div class="dropDownTwo">
-            <select class="color" name="colorSelector">
-    
-            </select>
-        </div>
-        <div class="dropDownThree">
-            <select class="size" name="sizeSelector">
-    
-            </select>
-        </div>
-        <button id="search-button" type="button" name="search">Search</button>
+    <div class="header">
+      <h2>Shoe Api</h2>
+      <a href="">Stock</a>
+      <a href="">Cart</a>
+      <a href="">Admin</a>
+    </div>
+    <div style="height:50px;"></div>
+    <div class="row search-area">
+      <div class="dropDownOne">
+        <select class="brand" name="brandSelector">
+        </select>
       </div>
-      <div style="height:50px;"></div>
-      <div class="row add-area">
-        <p>enter shoe details to add it to the database</p>
-        <div class="dropDownFour">
-            <select class="addBrand" name="addBrand">
-            </select>
-        </div>
-        <div class="dropDownFive">
-            <select class="addColor" name="addColor">
-            </select>
-        </div>
-        <div class="dropDownSix">
-            <select class="addSize" name="addSize">
-            </select>
-        </div>
-        <input type="number" name="addPrice" class="addPrice" placeholder="Unit Price">
-        <input type="number" name="addstock" class="addStock" placeholder="Stock Quantity">
-        <button id="add-button" type="submit" name="add">Add Stock</button>
+      <div class="dropDownTwo">
+        <select class="color" name="colorSelector">
+        </select>
       </div>
-      <div style="height:50px;"></div>
-      <div class="buttons">
-        <button id="stock-button" type="button" name="stock">Show Stock</button>
-        <button id="show-button" type="button" name="show">Show Cart</button>
+      <div class="dropDownThree">
+        <select class="size" name="sizeSelector">
+        </select>
       </div>
-      <div style="height:50px;"></div>
-      <div class="row shopping-cart">
-        <div class="insertShoppingCartElement"></div>
-      </div>
-      <div class="row search-results">
-        <div class="insertSearchDataElement"></div>
-      </div>
-      <div class="row available-stock">
-        <div class="insertAvailableStockElement stock"></div>
-      </div>
-      <div style="height:50px;"></div>
-      <div class="footer"><h2>Footer Section</h2></div>
+      <button id="search-button" type="button" name="search">Search for shoe</button>
+    </div>
+    <div style="height:50px;"></div>
+    <div class="row add-area">
+      <p>enter shoe details to add it to the database</p>
+      <input type="text" name="addBrand" class="addBrand" placeholder="Adidas">
+      <input type="text" name="addColor" class="addColor" placeholder="Blue">
+      <input type="number" name="addSize" class="addSize" placeholder="6">
+      <input type="number" name="addPrice" class="addPrice" placeholder="ZAR 1259.99">
+      <input type="number" name="addstock" class="addStock" placeholder="100 units">
+      <button id="add-button" type="submit" name="add">Add Stock</button>
+    </div>
+    <div style="height:50px;"></div>
+    <div class="buttons">
+      <button id="stock-button" type="button" name="stock">Show Stock</button>
+      <button id="show-button" type="button" name="show">Show Cart</button>
+    </div>
+    <div style="height:50px;"></div>
+    <div class="row shopping-cart">
+      <div class="insertShoppingCartElement"></div>
+    </div>
+    <div class="row search-results">
+      <div class="insertSearchDataElement"></div>
+    </div>
+    <div class="row available-stock">
+      <div class="insertAvailableStockElement stock"></div>
+    </div>
+    <div style="height:50px;"></div>
+    <div class="footer">
+      <h2>Something cool goes here with some links</h2>
+    </div>
   </div>
 
 

@@ -1,57 +1,38 @@
-
 body{
-    background-color: lightgrey;
 }
-
 .container{
     width: 95%;
     margin: 0 auto;
-    background-color: ghostwhite;
 }
-
-
 .header{
     text-align: center;
-    color: beige;
     width: 100%;
     height: 1%;
     padding: 10px 0px;
     margin: 0 auto;
-    background-color: crimson;
 }
-
-
 .search-area{
-
-}
-.dropDownOne{
     
+    border: 1px solid black;
+    text-align: center;
 }
-.dropDownTwo{
-    
-}
-.dropDownThree{
-    
+select.brand, select.color, select.size{
+    margin: 0 auto;
+    width: 250px;
 }
 
 .add-area{
-        
-}
-.dropDownFour{
-    
-}
-.dropDownFive{
-    
-}
-.dropDownSix{
-    
+    margin: 
+ auto;    display: inline-block;
+    text-align: center;
+    border: 1px solid black;
 }
 
 .buttons{
-
+    border: 1px solid black;
 }
 
-.shopping-cart{
+/* .shopping-cart{
 
 }
 
@@ -61,14 +42,13 @@ body{
 
 .available-stock{
 
-}
+} */
 
 .footer{
     text-align: center;
-    color: beige;
     width: 100%;
     height: 1%;
     padding: 10px 0px;
     margin: 0 auto;
-    background-color: crimson;
+    border: 1px solid black;
 }

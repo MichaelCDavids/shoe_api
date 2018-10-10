@@ -34,9 +34,6 @@ let sizeSource = document.querySelector(".sizeDropdown").innerHTML;
 let sizeTemplate = Handlebars.compile(sizeSource);
 let sizeSelector = document.querySelector(".size");
 
-
-
-
 const shoeCatalogue = ShoeCatalogue();
 
 window.addEventListener('load', function () {
@@ -54,46 +51,50 @@ window.addEventListener('load', function () {
       sizeSelector.innerHTML = sizeTemplate({
         sizes: results.data.sizes
       });
-      addBrand.innerHTML = brandTemplate({
-        brands: results.data.brands
-      });
-      addColor.innerHTML = colorTemplate({
-        colors: results.data.colors
-      });
-      addSize.innerHTML = sizeTemplate({
-        sizes: results.data.sizes
-      });
-    })
+    });
 });
+
+
 searchButton.addEventListener('click', function () {
   let brand = brandSelector.value;
   let size = sizeSelector.value;
   let color = colorSelector.value;
-  search(size, brand, color);
+  search(brand, color, size);
 });
-function search(size, brand, color) {
-  if (brand === '' && size < 1 && color === '') {
-    shoeCatalogue.shoesInStock()
+
+
+function search(brand, color, size) {
+  if (brand !== '' && size !== '' && color !== '') {
+    shoeCatalogue.filterAll(brand,color,size)
       .then(results => renderTemplate(results))
-  } else if (brand !== '' && size !== 0) {
-    shoeCatalogue.filterBrandSize(size, brand)
+  } else if (brand !== '' && color === '' && size !== '' ) {
+    shoeCatalogue.filterBrandSize(brand, size)
       .then(results => renderTemplate(results))
-  } else if (brand !== '') {
+  } else if (brand !== '' && color !== '' && size === '') {
+    shoeCatalogue.filterBrandColor(brand, color)
+      .then(results => renderTemplate(results))
+  } else if (brand === '' && color !== '' && size !== '') {
+    shoeCatalogue.filterColorSize(color,size)
+      .then(results => renderTemplate(results))
+  } else if (brand !== '' && color === '' && size === '') {
     shoeCatalogue.filterBrand(brand)
       .then(results => renderTemplate(results))
-  } else if (size !== 0) {
+  } else if (brand === '' && color !== '' && size === '') {
+    shoeCatalogue.filterColor(color)
+      .then(results => renderTemplate(results))
+  } else if (brand === '' && color === '' && size !== '') {
     shoeCatalogue.filterSize(size)
       .then(results => renderTemplate(results))
-  } else if (color !== 0) {
-    shoeCatalogue.filterColor(color)
+  } else {
+    shoeCatalogue.stockShoes()
       .then(results => renderTemplate(results))
   }
 };
 addButton.addEventListener('click', function () {
   let params = {
-    brand: Number(addBrand.value),
-    color: Number(addColor.value),
-    price: Number(addPrice.value),
+    brand: addBrand.value,
+    color: addColor.value,
+    price: addPrice.value,
     size: Number(addSize.value),
     in_stock: Number(addStock.value)
   };
@@ -140,6 +141,7 @@ cartButton.addEventListener('click', function () {
     })
 });
 function addToCart(id) {
+  console.log(id);
   insertSearchDataElement.innerHTML = "";
   shoeCatalogue.addItemToCart(id)
     .then(results => {

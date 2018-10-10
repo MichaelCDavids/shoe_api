@@ -16,6 +16,8 @@ module.exports = function ShoesService(pool) {
         let sizes = await pool.query('select * from sizes order by size asc');
         return sizes.rows;
     };
+
+
     async function filterBrand(brand) {
         let filteredBrand = await pool.query('select * from shoes where brand=$1 order by id asc', [brand]);
         return filteredBrand.rows;
@@ -28,26 +30,73 @@ module.exports = function ShoesService(pool) {
         let filteredColor = await pool.query('select * from shoes where color=$1 order by id asc', [color]);
         return filteredColor.rows
     };
-    async function filterBrandSize(size, brand) {
-        let filteredBrandSize = await pool.query('select * from shoes where size=$1 and brand=$2 order by id asc', [size, brand]);
+
+
+    async function filterBrandSize(brand, size) {
+        let filteredBrandSize = await pool.query('select * from shoes where brand=$2 and size=$1 order by id asc', [brand, size]);
         return filteredBrandSize.rows;
     };
     async function filterBrandColor(brand, color){
         let filteredBrandColor = await pool.query('select * from shoes where brand=$1 and color=$2', [brand, color]);
         return filteredBrandColor.rows;
     };
-    async function filterSizeColor(size,color){
-        let filteredSizeColor = await pool.query('select * from shoes where size=$1 and color=$2', [size, color]);
+    async function filterColorSize(color, size){
+        let filteredSizeColor = await pool.query('select * from shoes where size=$2 and color=$1', [color, size]);
         return filteredSizeColor.rows;
     };
     async function filterBrandSizeColor(size,color){
         let filteredBrandSizeColor = await pool.query('select * from shoes where brand=$1 and size=$2 and color=$3', [brand, size, color]);
         return filteredBrandSizeColor.rows;
     };
+
+
+
     async function addStock(shoeData) {
-        const shoeDataList = [shoeData.brand, shoeData.price, shoeData.color, shoeData.size, shoeData.in_stock];
+        console.log(shoeData)
+        let brandID = await addBrand(shoeData.brand);
+        let colorID = await addColor(shoeData.color);
+        let sizeID = await addSize(shoeData.size);
+        const shoeDataList = [brandID, shoeData.price, colorID, sizeID, shoeData.in_stock];
         const insertShoeQuery = 'insert into shoes (brand, price, color, size, in_stock) values ($1, $2, $3, $4, $5)';
         await pool.query(insertShoeQuery, shoeDataList);
+        
+    };
+
+    async function addBrand(brand){
+        query = `select * from brands where brand_name=$1`;
+        let foundBrand = await pool.query(query,[brand]);
+        if(foundBrand.rowCount === 0){
+            await pool.query('insert into brands (brand_name) values ($1)',[brand]);
+            let brandID = await pool.query('select id from brands where brand_name=$1',[brand])
+            return brandID.rows[0].id 
+        }else{
+            let brandID = await pool.query('select id from brands where brand_name=$1',[brand])
+            return brandID.rows[0].id
+        }
+    };
+    async function addColor(color){
+        query = `select * from colors where color_name=$1`;
+        let foundColor = await pool.query(query,[color]);
+        if(foundColor.rowCount === 0){
+            await pool.query('insert into colors (color_name) values ($1)',[color]);
+            let colorID = await pool.query('select id from colors where color_name=$1',[color])
+            return colorID.rows[0].id 
+        }else{
+            let colorID = await pool.query('select id from colors where color_name=$1',[color])
+            return colorID.rows[0].id
+        }
+    };
+    async function addSize(size){
+        query = `select * from sizes where size=$1`;
+        let foundSize = await pool.query(query,[size]);
+        if(foundSize.rowCount === 0){
+            await pool.query('insert into sizes (size) values ($1)',[size]);
+            let sizeID = await pool.query('select id from sizes where size=$1',[size])
+            return sizeID.rows[0].id 
+        }else{
+            let sizeID = await pool.query('select id from sizes where size=$1',[size])
+            return sizeID.rows[0].id
+        }
     };
     return {
         getShoes,
@@ -58,9 +107,11 @@ module.exports = function ShoesService(pool) {
         filterBrand,
         filterSize,
         filterColor,
+
         filterBrandSize,
         filterBrandColor,
-        filterSizeColor,
+        filterColorSize,
+        
         filterBrandSizeColor,
 
         addStockItem: addStock 

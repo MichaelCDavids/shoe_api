@@ -15,7 +15,7 @@ let local = process.env.LOCAL || false;
 if (process.env.DATABASE_URL && !local) {
     useSSL = true;
 }
-const connectionString = process.env.DATABASE_URL || 'postgresql://coder:pg123@localhost:5432/shoe_catalogue_db';
+const connectionString = process.env.DATABASE_URL || 'postgresql://muji:pg123@localhost:5432/shoe_catalogue_db';
 const pool = new Pool({
     connectionString,
     ssl: useSSL
@@ -44,22 +44,25 @@ function errorHandler(err, req, res, next) {
         error: err
     });
 }
+
 app.get('/api/shoes', apiRoutes.allShoes);
-app.get('/api/shoes/cart', apiRoutes.showCart);
 
 app.get('/api/shoes/brand/:brandname', apiRoutes.filterByBrand);
-app.get('/api/shoes/size/:size', apiRoutes.filterBySize);
 app.get('/api/shoes/color/:color', apiRoutes.filterByColor);
+app.get('/api/shoes/size/:size', apiRoutes.filterBySize);
+
 app.get('/api/shoes/brand/:brandname/size/:size', apiRoutes.filterByBrandSize);
-app.get('/api/shoes/brand/:brandname/size/:size/:color', apiRoutes.filterByBrandSizeColor);
+app.get('/api/shoes/brand/:brandname/color/:color', apiRoutes.filterByBrandColor);
+app.get('/api/shoes/color/:color/size/:size', apiRoutes.filterByColorSize);
+
+app.get('/api/shoes/brand/:brandname//color/:color/size/:size', apiRoutes.filterByBrandColorSize);
 
 app.post('/api/shoes/add', apiRoutes.addShoe);
 
+app.get('/api/shoes/cart', apiRoutes.showCart);
 app.post('/api/shoes/sold/:id', apiRoutes.addToCart);
 app.post('/api/shoes/cart/remove/:id', apiRoutes.removeFromCart);
 app.post('/api/shoes/cart/checkout', apiRoutes.checkout);
-
-
 
 
 
