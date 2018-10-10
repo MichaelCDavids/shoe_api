@@ -19,13 +19,6 @@ module.exports = function (shoesService, cartService) {
 			})
 		}
 	};
-
-
-
-
-
-
-
 	async function filterByBrand(req, res) {
 		try {
 			let brand = req.params.brandname
@@ -71,17 +64,6 @@ module.exports = function (shoesService, cartService) {
 			})
 		}
 	};
-
-
-
-
-
-
-
-
-
-
-
 	async function filterByBrandSize(req, res) {
 		try {
 			let brand = req.params.brandname
@@ -135,7 +117,6 @@ module.exports = function (shoesService, cartService) {
 			let brand = req.params.brandname;
 			let size = req.params.size;
 			let color = req.params.color;
-			console.log(brand,size,color)
 			let results = await shoesService.filterBrandSizeColor(brand, size, color);
 			res.json({
 				status: 'success',
@@ -148,13 +129,6 @@ module.exports = function (shoesService, cartService) {
 			})
 		}
 	};
-	
-	
-	
-	
-	
-	
-	
 	async function addShoe(req, res) {
 		try {
 			let params = req.body;
@@ -174,10 +148,6 @@ module.exports = function (shoesService, cartService) {
 
 		}
 	};
-	
-	
-	
-	
 	async function showCart(req, res) {
 		try {
 			let results = await cartService.cartShoes();
@@ -215,9 +185,7 @@ module.exports = function (shoesService, cartService) {
 			let shoeID = req.params;
 			await cartService.removeFromCart(shoeID.id);
 			let results = await cartService.cartShoes();
-			console.log(results);
 			let sum = await cartService.cartTotal();
-			console.log(sum);
 			res.json({
 				status: 'success',
 				items: results,
@@ -246,24 +214,16 @@ module.exports = function (shoesService, cartService) {
 			})
 		}
 	};
-
-
-
 	return {
 		allShoes,
-
 		filterByBrand,
 		filterByColor,
 		filterBySize,
-
 		filterByBrandSize,
 		filterByBrandColor,
 		filterByColorSize,
-
 		filterByBrandColorSize,
-
 		addShoe,
-
 		showCart,
 		addToCart,
 		removeFromCart,

@@ -53,16 +53,12 @@ window.addEventListener('load', function () {
       });
     });
 });
-
-
 searchButton.addEventListener('click', function () {
   let brand = brandSelector.value;
   let size = sizeSelector.value;
   let color = colorSelector.value;
   search(brand, color, size);
 });
-
-
 function search(brand, color, size) {
   if (brand !== '' && size !== '' && color !== '') {
     shoeCatalogue.filterAll(brand,color,size)

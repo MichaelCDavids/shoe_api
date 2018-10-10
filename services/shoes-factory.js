@@ -1,6 +1,6 @@
 module.exports = function ShoesService(pool) {
     async function getShoes() {
-        let query = `select * from shoes join brands on brands.id=shoes.brand join colors on colors.id=shoes.color join sizes on sizes.id=shoes.size;`;
+        let query = `select * from shoes join brands on brands.id=shoes.brand join colors on colors.id=shoes.color join sizes on sizes.id=shoes.size order by shoes.id`;
         let results = await pool.query(query);
         return results.rows;
     };
@@ -52,7 +52,6 @@ module.exports = function ShoesService(pool) {
 
 
     async function addStock(shoeData) {
-        console.log(shoeData)
         let brandID = await addBrand(shoeData.brand);
         let colorID = await addColor(shoeData.color);
         let sizeID = await addSize(shoeData.size);
@@ -103,17 +102,13 @@ module.exports = function ShoesService(pool) {
         getBrands,
         getColors,
         getSizes,
-
         filterBrand,
         filterSize,
         filterColor,
-
         filterBrandSize,
         filterBrandColor,
         filterColorSize,
-        
         filterBrandSizeColor,
-
         addStockItem: addStock 
     };
 }

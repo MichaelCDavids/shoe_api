@@ -26,5 +26,6 @@ create table cart(
 	id serial not null primary key,
 	shoe_id int not null,
 	qty int not null,
-	total numeric not null
+	total numeric not null,
+	foreign key (shoe_id) references shoes(id)
 );
