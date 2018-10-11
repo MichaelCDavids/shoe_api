@@ -117,7 +117,7 @@ module.exports = function (shoesService, cartService) {
 			let brand = req.params.brandname;
 			let size = req.params.size;
 			let color = req.params.color;
-			let results = await shoesService.filterBrandSizeColor(brand, size, color);
+			let results = await shoesService.filterBrandColorSize(brand, color, size);
 			res.json({
 				status: 'success',
 				items: results
@@ -132,6 +132,7 @@ module.exports = function (shoesService, cartService) {
 	async function addShoe(req, res) {
 		try {
 			let params = req.body;
+			console.log(params);
 			await shoesService.addStockItem(params);
 			let results = await shoesService.getShoes();
 			let brands = await shoesService.getBrands();
@@ -151,6 +152,7 @@ module.exports = function (shoesService, cartService) {
 	async function showCart(req, res) {
 		try {
 			let results = await cartService.cartShoes();
+			console.log(results);
 			let sum = await cartService.cartTotal();
 			res.json({
 				status: 'success',

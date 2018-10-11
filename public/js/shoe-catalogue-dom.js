@@ -59,18 +59,19 @@ searchButton.addEventListener('click', function () {
   let color = colorSelector.value;
   search(brand, color, size);
 });
+
 function search(brand, color, size) {
   if (brand !== '' && size !== '' && color !== '') {
-    shoeCatalogue.filterAll(brand,color,size)
+    shoeCatalogue.filterAll(brand, color, size)
       .then(results => renderTemplate(results))
-  } else if (brand !== '' && color === '' && size !== '' ) {
+  } else if (brand !== '' && color === '' && size !== '') {
     shoeCatalogue.filterBrandSize(brand, size)
       .then(results => renderTemplate(results))
   } else if (brand !== '' && color !== '' && size === '') {
     shoeCatalogue.filterBrandColor(brand, color)
       .then(results => renderTemplate(results))
   } else if (brand === '' && color !== '' && size !== '') {
-    shoeCatalogue.filterColorSize(color,size)
+    shoeCatalogue.filterColorSize(color, size)
       .then(results => renderTemplate(results))
   } else if (brand !== '' && color === '' && size === '') {
     shoeCatalogue.filterBrand(brand)
@@ -90,12 +91,32 @@ addButton.addEventListener('click', function () {
   let params = {
     brand: addBrand.value,
     color: addColor.value,
-    price: addPrice.value,
+    price: Number(addPrice.value),
     size: Number(addSize.value),
     in_stock: Number(addStock.value)
   };
-  shoeCatalogue.addItem(params)
+  shoeCatalogue.addItem(params).then(results => {
+    if (results.data.status === 'success') {
+      shoeCatalogue.stockShoes()
+        .then(shoes => {
+          availableStockElement.innerHTML = templateCatalogue({
+            shoes: shoes.data.items
+          });
+          brandSelector.innerHTML = brandTemplate({
+            brands: shoes.data.brands
+          });
+          colorSelector.innerHTML = colorTemplate({
+            colors: shoes.data.colors
+          });
+          sizeSelector.innerHTML = sizeTemplate({
+            sizes: shoes.data.sizes
+          });
+        });
+    }
+  })
+
 });
+
 function renderTemplate(results) {
   availableStockElement.innerHTML = "";
   insertSearchDataElement.innerHTML = templateShoeCatalogue({
@@ -119,10 +140,11 @@ cartButton.addEventListener('click', function () {
     .then(results => {
       insertShoppingCartElement.innerHTML = templateShoppingCart({
         cartShoes: results.data.items,
-        total: results.data.sum 
+        total: results.data.sum
       });
     })
 });
+
 function addToCart(id) {
   console.log(id);
   insertSearchDataElement.innerHTML = "";
@@ -133,15 +155,17 @@ function addToCart(id) {
       });
     });
 };
+
 function removeFromCart(id) {
   shoeCatalogue.removeFromCart(id)
     .then(results => {
       insertShoppingCartElement.innerHTML = templateShoppingCart({
         cartShoes: results.data.items,
-        total: results.data.sum 
+        total: results.data.sum
       });
     })
 };
+
 function checkout() {
   shoeCatalogue.checkout()
     .then(results => {

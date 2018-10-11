@@ -11,9 +11,6 @@ function ShoeCatalogue() {
   function stockColors(color){
     return axios.get(`/api/shoes/color/${color}`)
   };
-
-
-
   function filterBrand(brand){
     return axios.get(`/api/shoes/brand/${brand}`);
   };
@@ -23,23 +20,18 @@ function ShoeCatalogue() {
   function filterColor(color){
     return axios.get(`/api/shoes/color/${color}`);
   };
-
-
-
-  function filterColorSize(color, size){
-    return axios.get(`/api/shoes//color/${color}/size/${size}`);
-  };
-  function filterBrandSize(brand, size) {
-    return axios.get(`/api/shoes/brand/${brand}/size/${size}`);
-  };
   function filterBrandColor(brand, color){
     return axios.get(`/api/shoes/brand/${brand}/color/${color}`);
   }
-
+  function filterBrandSize(brand, size) {
+    return axios.get(`/api/shoes/brand/${brand}/size/${size}`);
+  };
+  function filterColorSize(color, size){
+    return axios.get(`/api/shoes/color/${color}/size/${size}`);
+  };
   function filterAll(brand, color, size){
     return axios.get(`/api/shoes/brand/${brand}/color/${color}/size/${size}`);
-  }
-
+  };
   function addItem(params){
     return axios.post('/api/shoes/add', params)
   };
@@ -65,9 +57,11 @@ function ShoeCatalogue() {
     filterBrand,
     filterSize,
     filterColor,
-    filterColorSize,
-    filterBrandSize,
+
     filterBrandColor,
+    filterBrandSize,
+    filterColorSize,
+    
     filterAll,
 
     addItem,
