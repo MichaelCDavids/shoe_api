@@ -30,6 +30,7 @@ function ShoeCatalogue() {
     return axios.get(`/api/shoes/color/${color}/size/${size}`);
   };
   function filterAll(brand, color, size){
+    console.log(brand,color,size)
     return axios.get(`/api/shoes/brand/${brand}/color/${color}/size/${size}`);
   };
   function addItem(params){

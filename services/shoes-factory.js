@@ -30,31 +30,32 @@ module.exports = function ShoesService(pool) {
         return sizes.rows;
     };
     async function filterBrand(brand) {
-        let filteredBrand = await pool.query('select * from shoes join brands on brands.id=shoes.brand_id join colors on colors.id=shoes.color_id join sizes on sizes.id=shoes.size_id where shoes.brand=$1 order by shoes.id asc', [brand]);
+        let filteredBrand = await pool.query(`select shoes.id as id, brand_name, color_name, price, in_stock, sizes.size as size from shoes join brands on brands.id=shoes.brand_id join colors on colors.id=shoes.color_id join sizes on sizes.id=shoes.size_id where shoes.brand_id=$1 order by shoes.id asc`, [brand]);
         return filteredBrand.rows;
     };
     async function filterSize(size) {
-        let filteredSize = await pool.query('select * from shoes join brands on brands.id=shoes.brand_id join colors on colors.id=shoes.color_id join sizes on sizes.id=shoes.size_id where shoes.size=$1 order by shoes.id asc', [size]);
+        let filteredSize = await pool.query('select shoes.id as id, brand_name, color_name, price, in_stock, sizes.size as size from shoes join brands on brands.id=shoes.brand_id join colors on colors.id=shoes.color_id join sizes on sizes.id=shoes.size_id where shoes.size_id=$1 order by shoes.id asc', [size]);
         return filteredSize.rows;
     };
     async function filterColor(color){
-        let filteredColor = await pool.query('select * from shoes join brands on brands.id=shoes.brand_id join colors on colors.id=shoes.color_id join sizes on sizes.id=shoes.size_id where shoes.color=$1 order by shoes.id asc', [color]);
+        let filteredColor = await pool.query('select shoes.id as id, brand_name, color_name, price, in_stock, sizes.size as size from shoes join brands on brands.id=shoes.brand_id join colors on colors.id=shoes.color_id join sizes on sizes.id=shoes.size_id where shoes.color_id=$1 order by shoes.id asc', [color]);
         return filteredColor.rows
     };
     async function filterBrandSize(brand, size) {
-        let filteredBrandSize = await pool.query('select * from shoes join brands on brands.id=shoes.brand_id join colors on colors.id=shoes.color_id join sizes on sizes.id=shoes.size_id where shoes.brand=$1 and shoes.size=$2 order by shoes.id asc', [brand, size]);
+        let filteredBrandSize = await pool.query('select shoes.id as id, brand_name, color_name, price, in_stock, sizes.size as size from shoes join brands on brands.id=shoes.brand_id join colors on colors.id=shoes.color_id join sizes on sizes.id=shoes.size_id where shoes.brand_id=$1 and shoes.size_id=$2 order by shoes.id asc', [brand, size]);
         return filteredBrandSize.rows;
     };
     async function filterBrandColor(brand, color){
-        let filteredBrandColor = await pool.query('select * from shoes join brands on brands.id=shoes.brand_id join colors on colors.id=shoes.color_id join sizes on sizes.id=shoes.size_id where shoes.brand=$1 and shoes.color=$2 order by shoes.id asc ', [brand, color]);
+        let filteredBrandColor = await pool.query('select shoes.id as id, brand_name, color_name, price, in_stock, sizes.size as size from shoes join brands on brands.id=shoes.brand_id join colors on colors.id=shoes.color_id join sizes on sizes.id=shoes.size_id where shoes.brand_id=$1 and shoes.color_id=$2 order by shoes.id asc ', [brand, color]);
         return filteredBrandColor.rows;
     };
     async function filterColorSize(color, size){
-        let filteredSizeColor = await pool.query('select * from shoes join brands on brands.id=shoes.brand_id join colors on colors.id=shoes.color_id join sizes on sizes.id=shoes.size_id where shoes.size=$2 and shoes.color=$1 order by shoes.id asc', [color, size]);
+        let filteredSizeColor = await pool.query('select shoes.id as id, brand_name, color_name, price, in_stock, sizes.size as size from shoes join brands on brands.id=shoes.brand_id join colors on colors.id=shoes.color_id join sizes on sizes.id=shoes.size_id where shoes.size_id=$2 and shoes.color_id=$1 order by shoes.id asc', [color, size]);
         return filteredSizeColor.rows;
     };
     async function filterBrandColorSize(brand, color, size){
-        let filteredBrandSizeColor = await pool.query('select * from shoes join brands on brands.id=shoes.brand_id join colors on colors.id=shoes.color_id join sizes on sizes.id=shoes.size_id where shoes.brand=$1 and shoes.size=$2 and shoes.color=$3 order by shoes.id asc', [brand, size, color]);
+        console.log(brand,color,size)
+        let filteredBrandSizeColor = await pool.query('select shoes.id as id, brand_name, color_name, price, in_stock, sizes.size as size from shoes join brands on brands.id=shoes.brand_id join colors on colors.id=shoes.color_id join sizes on sizes.id=shoes.size_id where shoes.brand_id=$1 and shoes.size_id=$2 and shoes.color_id=$3 order by shoes.id asc', [brand, size, color]);
         return filteredBrandSizeColor.rows;
     };
     async function addStock(shoeData) {

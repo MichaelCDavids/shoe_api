@@ -132,7 +132,6 @@ module.exports = function (shoesService, cartService) {
 	async function addShoe(req, res) {
 		try {
 			let params = req.body;
-			console.log(params);
 			await shoesService.addStockItem(params);
 			let results = await shoesService.getShoes();
 			let brands = await shoesService.getBrands();
