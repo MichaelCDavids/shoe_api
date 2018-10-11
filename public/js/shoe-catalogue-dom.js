@@ -95,19 +95,6 @@ addButton.addEventListener('click', function () {
     in_stock: Number(addStock.value)
   };
   shoeCatalogue.addItem(params)
-    .then(results => {
-      if (results.status === 'success') {
-        shoeCatalogue
-          .stockShoes()
-          .then(shoes => {
-            availableStockElement.innerHTML = templateCatalogue({
-              shoes: shoes.data.items
-            });
-          }).catch(function (err) {
-            alert(err);
-          });
-      };
-    });
 });
 function renderTemplate(results) {
   availableStockElement.innerHTML = "";

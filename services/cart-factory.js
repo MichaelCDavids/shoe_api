@@ -24,28 +24,22 @@ module.exports = function (pool) {
     async function removeFromCart(id) {
         console.log('shoe id: '+id);
         let cartShoe = await pool.query(`select * from cart join shoes on shoes.id=cart.shoe_id where shoe_id=$1`, [id]);
-        console.log('shoe: '+cartShoe.rows);
+        //console.log('shoe: '+cartShoe.rows);
         let qty = cartShoe.rows[0].qty;
         console.log('shoe qty: '+qty);
-        if(qty >= 1){
-            console.log('here');
+        if(qty > 0){
             await pool.query('update cart set qty=qty-1 where shoe_id=$1', [id]);
-            console.log('updated qty');
             await pool.query('update cart set total=$1*qty where shoe_id=$2',[cartShoe.rows[0].price, id]);
-            console.log('updated total');
             await pool.query('update shoes set in_stock=in_stock+1 where id=$1', [id]);
-            console.log('updated stock levels');
-            let cartShoeToRemove = await pool.query(`select * from cart where shoe_id=$1`, [id]);
-            console.log(cartShoeToRemove.rows[0].qty)
-            let newQty = cartShoeToRemove.rows[0].qty;
-            if(newQty === 0){
-                
-                await pool.query('update cart set total=price*qty where shoe_id=$1',[id]);
+            let cartShoeToRemoveQty = await pool.query(`select * from cart join shoes on shoes.id=cart.shoe_id where shoe_id=$1`, [id]);
+            let newQty = cartShoeToRemoveQty.rows[0].qty
+            console.log(newQty);
+
+            if( newQty < 1 || newQty == 0){
+                console.log(typeof(qty))
+                await pool.query('update cart set total=$1*qty where shoe_id=$2',[cartShoe.rows[0].price, id]);
                 await pool.query(`delete from cart where shoe_id=$1`, [id]);
             } 
-            let cartShoes = await cartShoes();
-            console.log(cartShoes)
-            return cartShoes;  
         } 
     };
     async function cartTotal() {
