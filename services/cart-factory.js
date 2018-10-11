@@ -1,6 +1,11 @@
 module.exports = function (pool) {
     async function cartShoes() {
-        let query = `select * from cart left join shoes on shoes.id=cart.shoe_id join brands on brands.id=shoes.brand join colors on colors.id=shoes.color join sizes on sizes.id=shoes.size order by cart.id asc;`;
+        let query = `select * from cart 
+            join shoes on shoes.id=cart.shoe_id 
+            join brands on brands.id=shoes.brand_id 
+            join colors on colors.id=shoes.color_id 
+            join sizes on sizes.id=shoes.size_id 
+            order by cart.id asc;`;
         let results = await pool.query(query);
         return results.rows;
     };
@@ -17,8 +22,6 @@ module.exports = function (pool) {
                 await pool.query('update cart set total=$1*qty where shoe_id=$2', [shoe.price, shoe.id]);
             }
             await pool.query('update shoes set in_stock=in_stock-1 where id=$1', [shoe.id]);
-            let newShoeList = await pool.query('select * from shoes order by id asc;');
-            return newShoeList.rows;
         };
     };
     async function removeFromCart(id) {

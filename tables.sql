@@ -17,14 +17,14 @@ create table sizes
 create table shoes
 (
 	id serial not null primary key,
-	brand int not null,
+	brand_id int not null,
 	price numeric not null,
-	color int not null,
-	size int not null,
+	color_id int not null,
+	size_id int not null,
 	in_stock int not null,
-	foreign key (brand) references brands(id),
-	foreign key (color) references colors(id),
-	foreign key (size) references sizes(id)
+	foreign key (brand_id) references brands(id),
+	foreign key (color_id) references colors(id),
+	foreign key (size_id) references sizes(id)
 );
 create table cart
 (
