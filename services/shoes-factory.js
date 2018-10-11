@@ -1,6 +1,6 @@
 module.exports = function ShoesService(pool) {
     async function getShoes() {
-        let query = `select * from shoes join brands on brands.id=shoes.brand join colors on colors.id=shoes.color join sizes on sizes.id=shoes.size order by shoes.id`;
+        let query = `select * from shoes join brands on brands.id=shoes.brand join colors on colors.id=shoes.color join sizes on sizes.id=shoes.size  where in_stock>0 order by shoes.id`;
         let results = await pool.query(query);
         return results.rows;
     };
@@ -16,8 +16,6 @@ module.exports = function ShoesService(pool) {
         let sizes = await pool.query('select * from sizes order by size asc');
         return sizes.rows;
     };
-
-
     async function filterBrand(brand) {
         let filteredBrand = await pool.query('select * from shoes join brands on brands.id=shoes.brand join colors on colors.id=shoes.color join sizes on sizes.id=shoes.size where brand=$1 order by shoes.id asc', [brand]);
         return filteredBrand.rows;
@@ -30,8 +28,6 @@ module.exports = function ShoesService(pool) {
         let filteredColor = await pool.query('select * from shoes join brands on brands.id=shoes.brand join colors on colors.id=shoes.color join sizes on sizes.id=shoes.size where color=$1 order by shoes.id asc', [color]);
         return filteredColor.rows
     };
-
-
     async function filterBrandSize(brand, size) {
         let filteredBrandSize = await pool.query('select * from shoes join brands on brands.id=shoes.brand join colors on colors.id=shoes.color join sizes on sizes.id=shoes.size where brand=$2 and size=$1 order by shoes.id asc', [brand, size]);
         return filteredBrandSize.rows;
@@ -48,9 +44,6 @@ module.exports = function ShoesService(pool) {
         let filteredBrandSizeColor = await pool.query('select * from shoes join brands on brands.id=shoes.brand join colors on colors.id=shoes.color join sizes on sizes.id=shoes.size where brand=$1 and size=$2 and color=$3 order by shoes.id asc', [brand, size, color]);
         return filteredBrandSizeColor.rows;
     };
-
-
-
     async function addStock(shoeData) {
         let brandID = await addBrand(shoeData.brand);
         let colorID = await addColor(shoeData.color);
@@ -62,7 +55,6 @@ module.exports = function ShoesService(pool) {
         let results = await pool.query(query);
         return results.rows;
     };
-
     async function addBrand(brand){
         query = `select * from brands where brand_name=$1`;
         let foundBrand = await pool.query(query,[brand]);
