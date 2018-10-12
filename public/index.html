@@ -7,6 +7,7 @@
   <meta name="description" content="shoe-catalogue-api">
   <meta name="author" content="Michael Davids">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
   <script type="text/x-template" class="availableStockTemplate">
@@ -114,7 +115,9 @@
 <body>
   <div class="container">
     <div class="header">
-      <h2>Shoe Api</h2>
+        <button id="stock-button" type="button" name="stock"><i class="far fa-eye"></i></button>
+        <button id="show-button" type="button" name="show"><i class="fas fa-shopping-cart"></i></button>
+        <!-- <a href="" id="show-button" type="button" name="show">Anchor button</a> -->
     </div>
     <div style="height:50px;"></div>
     <div class="row search-area">
@@ -133,29 +136,29 @@
       <button id="search-button" type="button" name="search">Search for shoe</button>
     </div>
     <div style="height:50px;"></div>
-    <div class="row add-area">
-      <input type="text" name="addBrand" class="addBrand" placeholder="Adidas">
-      <input type="text" name="addColor" class="addColor" placeholder="Blue">
-      <input type="number" name="addSize" class="addSize" placeholder="6">
-      <input type="number" name="addPrice" class="addPrice" placeholder="ZAR 1259.99">
-      <input type="number" name="addstock" class="addStock" placeholder="100 units">
-      <button id="add-button" type="submit" name="add">Add Stock</button>
+    <div class="row search-results">
+      <div class="insertSearchDataElement"></div>
     </div>
     <div style="height:50px;"></div>
+    <div class="row available-stock">
+        <div class="insertAvailableStockElement stock"></div>
+      </div>
+    <div style="height:50px;"></div>
     <div class="buttons">
-      <button id="stock-button" type="button" name="stock">Show Stock</button>
-      <button id="show-button" type="button" name="show">Show Cart</button>
+      
     </div>
     <div style="height:50px;"></div>
     <div class="row shopping-cart">
       <div class="insertShoppingCartElement"></div>
     </div>
-    <div class="row search-results">
-      <div class="insertSearchDataElement"></div>
-    </div>
-    <div class="row available-stock">
-      <div class="insertAvailableStockElement stock"></div>
-    </div>
+    <div class="row add-area">
+        <input type="text" name="addBrand" class="addBrand" placeholder="Brand Name">
+        <input type="text" name="addColor" class="addColor" placeholder="Shoe Color">
+        <input type="number" name="addSize" class="addSize" placeholder="Shoe Size">
+        <input type="number" name="addPrice" class="addPrice" placeholder="Shoe Price">
+        <input type="number" name="addstock" class="addStock" placeholder="Units of Stock">
+        <button id="add-button" type="submit" name="add">Add Stock</button>
+      </div>
     <div style="height:50px;"></div>
     <div class="footer">
       <h2>Something cool goes here with some links</h2>

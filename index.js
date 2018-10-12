@@ -67,3 +67,5 @@ var PORT = process.env.PORT || 3010;
 app.listen(PORT, function () {
     console.log('Shoe API webapp started and running listening on port:', PORT);
 });
+
+module.exports = app;
