@@ -5,7 +5,7 @@ let request = require('supertest');
 let expect = chai.expect;
 
 describe('The Shoe-API functions', function(){
-    it('getshoes shoul return status code 200', function(done){
+    it('the getShoes function should return a status code of 200', function(done){
         request(app)
         .get('/api/shoes')
         .end(function (err,res){
