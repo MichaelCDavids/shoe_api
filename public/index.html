@@ -2,173 +2,102 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title>Shoe-API</title>
-  <meta name="description" content="shoe-catalogue-api">
-  <meta name="author" content="Michael Davids">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
-  <script type="text/x-template" class="availableStockTemplate">
-    <h2>Available Stock</h2>
-    <div class="stockDisplay">
-      {{#each shoes}}
-      <div class="shoe">
-        <table>
-          <tr>
-            <td>Brand:</td><td>{{brand_name}}</td>
-          </tr>
-          <tr>
-            <td>Shoe Size:</td><td>{{size}}</td>
-          </tr>
-          <tr>
-            <td>Color:</td><td>{{color_name}}</td>
-          </tr>
-          <tr>
-            <td>Price:</td><td>{{price}}</td>
-          </tr>
-          <tr>
-            <td>In Stock:</td><td>{{in_stock}}</td>
-          </tr>
-        </table>
-        <button onclick="addToCart({{this.id}})" type="button" name="button">Add To Cart</button>
-      </div>
-      {{/each}}
-    </div>
-  </script>
-  <script type="text/x-template" class="shoppingCartTemplate">
-    <h2>Shopping Cart</h2>
-    {{#each cartShoes}}
-      <table>
-        <tr>
-          <td>Brand:</td><td>{{brand_name}}</td>
-        </tr>
-        <tr>
-          <td>Shoe Size:</td><td>{{size}}</td>
-        </tr>
-        <tr>
-          <td>Color:</td><td>{{color_name}}</td>
-        </tr>
-        <tr>
-          <td>Price:</td><td>{{price}}</td>
-        </tr>
-        <tr>
-          <td>Qty:</td><td>{{qty}}</td>
-        </tr>
-      </table>
-      <button onclick="removeFromCart({{this.shoe_id}})" type="button" name="remove">remove</button>
-    {{/each}}
-    <table>
-      <tr class="">
-        <td class="">Total Cost:</td><td class="">R {{total.sum}}</td>
-      </tr>
-    </table>     
-    <button onclick="checkout()" type="button" name="checkout">checkout</button>
-  </script>
-  <script type="text/x-template" class="afterSearchTemplate">
-    <h2>Search Results</h2>
-  {{#each searchResults}}
-  <div class="">
-  <table>
-  <tr>
-  <td>Brand:</td><td>{{brand_name}}</td>
-  </tr>
-  <tr>
-  <td>Color:</td><td>{{color_name}}</td>
-  </tr>
-  <tr>
-  <td>Shoe Size:</td><td>{{size}}</td>
-  </tr>
-  <tr>
-  <td>Stock Left:</td><td>{{in_stock}}</td>
-  </tr>
-  <tr>
-  <td>Price:</td><td>{{price}}</td>
-  </tr>
-  </table>
-  <button onclick="addToCart({{this.id}})" type="button" name="button">add</button>
-  </div>
-  {{/each}}
-  </script>
-  <script type="text/x-template" class="brandDropdown">
-    <option value="">Select Brand</option>
-    {{#each brands}}
-    <option value="{{this.id}}">{{this.brand_name}}</option>
-    {{/each}}  
-  </script>
-  <script type="text/x-template" class="colorDropdown">
-    <option value="">Select Color</option>
-    {{#each colors}}
-    <option value="{{this.id}}">{{this.color_name}}</option>
-    {{/each}}
-  </script>
-  <script type="text/x-template" class="sizeDropdown">
-      <option value="">Select Size</option>
-      {{#each sizes}}
-      <option value="{{this.id}}">{{this.size}}</option>
-      {{/each}}
-  </script>
-  <link rel="stylesheet" href="css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/new-styles.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+    <title>Uncle's Shoe Store</title>
 </head>
 
 <body>
-  <div class="container">
-    <div class="header">
-        <button id="stock-button" type="button" name="stock"><i class="far fa-eye"></i></button>
-        <button id="show-button" type="button" name="show"><i class="fas fa-shopping-cart"></i></button>
-        <!-- <a href="" id="show-button" type="button" name="show">Anchor button</a> -->
-    </div>
-    <div style="height:50px;"></div>
-    <div class="row search-area">
-      <div class="dropDownOne">
-        <select class="brand" name="brandSelector">
-        </select>
-      </div>
-      <div class="dropDownTwo">
-        <select class="color" name="colorSelector">
-        </select>
-      </div>
-      <div class="dropDownThree">
-        <select class="size" name="sizeSelector">
-        </select>
-      </div>
-      <button id="search-button" type="button" name="search">Search for shoe</button>
-    </div>
-    <div style="height:50px;"></div>
-    <div class="row search-results">
-      <div class="insertSearchDataElement"></div>
-    </div>
-    <div style="height:50px;"></div>
-    <div class="row available-stock">
-        <div class="insertAvailableStockElement stock"></div>
-      </div>
-    <div style="height:50px;"></div>
-    <div class="buttons">
-      
-    </div>
-    <div style="height:50px;"></div>
-    <div class="row shopping-cart">
-      <div class="insertShoppingCartElement"></div>
-    </div>
-    <div class="row add-area">
-        <input type="text" name="addBrand" class="addBrand" placeholder="Brand Name">
-        <input type="text" name="addColor" class="addColor" placeholder="Shoe Color">
-        <input type="number" name="addSize" class="addSize" placeholder="Shoe Size">
-        <input type="number" name="addPrice" class="addPrice" placeholder="Shoe Price">
-        <input type="number" name="addstock" class="addStock" placeholder="Units of Stock">
-        <button id="add-button" type="submit" name="add">Add Stock</button>
-      </div>
-    <div style="height:50px;"></div>
-    <div class="footer">
-      <h2>Something cool goes here with some links</h2>
-    </div>
-  </div>
+    <!--Header Section-->
+    <header id="head-section" class="grid">
+        <div class="background-image"></div>
+        <div class="content-wrapper">
+            <h1>Welcome To My Shoe-API</h1>
+            <p> <a href="#section-two" class="btn">start shopping</a></p>
 
+        </div>
+    </header>
 
+    <!-- Main Section -->
+    <main id="main">
+        <section id="section-one" class="grid">
+            <div class="content-wrapper">
+                <h2 class="content-title">Our Mission</h2>
+                <div class="content-text">
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos saepe iste quibusdam hic
+                        laboriosam libero impedit voluptatibus consectetur, sed, dolores eius nobis commodi dicta! Qui
+                        iusto temporibus nulla animi maiores id, deleniti explicabo quia recusandae, molestiae sequi
+                        suscipit nisi! Voluptas?<a href="#section-two" class="btn">Read More</a></p>
+                </div>
+            </div>
+        </section>
+        <!-- Section Two -->
+        <section id="section-two" class="grid">
+            <ul>
+                <li>
+                    <div class="card">
+                        <img src="images/blue-nike.jpg" alt="">
+                        <div class="card-content">
+                            <h4 class="card-title">Latest stock</h4>
+                            <a href="catalogue.html" class="btn">Catalogue</a>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="card">
+                        <img src="images/converse.jpg" alt="">
+                        <div class="card-content">
+                            <h4 class="card-title">Sell with us</h4>
+                            <a href="list-shoes.html" class="btn">List shoes</a>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="card">
+                        <img src="images/shoe-fits.jpg" alt="">
+                        <div class="card-content">
+                            <h4 class="card-title">Find Your Perfect Shoe</h4>
+                            <a href="search-shoes.html" class="btn">Search</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <!-- Section Three -->
+        <section id="section-three" class="grid">
+            <div class="content-wrapper">
+                <h2 class="content-title">We handle all you footwear Needs.</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit voluptatum quisquam aut
+                    deserunt necessitatibus dolorem eaque placeat vitae, nobis quam?</p>
 
+            </div>
+        </section>
+        <!-- Section D -->
+        <section id="section-four" class="grid">
+            <div class="box">
+                <h2 class="content-title">Contact Us</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio ipsa, quos veritatis rem blanditiis
+                    voluptates quidem. Provident excepturi minima rem.</p>
+                <p>enquiries@unclesshoestore.com</p>
+            </div>
+            <div class="box">
+                <h2 class="content-title">Subcribe to our Newsletter</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque exercitationem asperiores esse
+                    fugiat ducimus officia ea consequatur magni totam iste, <a href="#section-two" >Sign up</a>!</p>
+            </div>
+        </section>
+    </main>
+    <!-- Footer Section -->
+    <footer id="main-footer" class="grid">
+        <div>Uncle's Shoe Store</div>
+        <div>Developed By <a href="http://michaelcdavids.github.io" target="_blank">M.Davids</a> @projectcode-x 2018</div>
+    </footer>
 </body>
 <script src="js/shoe-api.js" charset="utf-8"></script>
-<script src="js/shoe-catalogue-dom.js" charset="utf-8"></script>
-
 </html>

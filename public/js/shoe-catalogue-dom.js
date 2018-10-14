@@ -172,7 +172,6 @@ function addToCart(id) {
       }
     });
 };
-
 function removeFromCart(id) {
   shoeCatalogue.removeFromCart(id)
     .then(results => {
@@ -182,7 +181,6 @@ function removeFromCart(id) {
       });
     })
 };
-
 function checkout() {
   shoeCatalogue.checkout()
     .then(results => {

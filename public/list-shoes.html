@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/new-styles.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+    <title>Sell with us</title>
+</head>
+
+<body>
+    <header id="head-section" class="grid">
+        <div class="background-image-listshoe"></div>
+        <div class="content-wrapper">
+            <h1>List a new shoe</h1>
+            <input type="text" name="addBrand" class="addBrand" placeholder="Brand Name">
+            <input type="text" name="addColor" class="addColor" placeholder="Shoe Color">
+            <input type="number" name="addSize" class="addSize" placeholder="Shoe Size">
+            <input type="number" name="addPrice" class="addPrice" placeholder="Shoe Price">
+            <input type="number" name="addstock" class="addStock" placeholder="Units of Stock">
+            <a id="add-button" type="submit" name="add" class="btn">List Shoe</a>
+        </div>
+    </header>
+    <footer id="main-footer" class="grid">
+        <div><a href="index.html">Uncle's Shoe Store</a></div>
+        <div>Developed By <a href="http://michaelcdavids.github.io" target="_blank">M.Davids</a> @projectcode-x 2018</div>
+    </footer>
+</body>
+<script src="js/shoe-api.js" charset="utf-8"></script>
+<script src="js/list-shoes-dom.js" charset="utf-8"></script>
+</html>
