@@ -132,7 +132,6 @@ module.exports = function (shoesService, cartService) {
 	async function addShoe(req, res) {
 		try {
 			let params = req.body;
-			console.log(params);
 			await shoesService.addStockItem(params);
 			let results = await shoesService.getShoes();
 			let brands = await shoesService.getBrands();
@@ -152,7 +151,6 @@ module.exports = function (shoesService, cartService) {
 	async function showCart(req, res) {
 		try {
 			let results = await cartService.cartShoes();
-			console.log(results);
 			let sum = await cartService.cartTotal();
 			res.json({
 				status: 'success',

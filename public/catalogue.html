@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Catalogue</title>
+  <meta name="description" content="shoe-catalogue-api">
+  <meta name="author" content="Michael Davids">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/new-styles.css">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+  <script type="text/x-template" class="availableStockTemplate">
+    <section id="section-two" class="grid">
+      <ul>
+      {{#each shoes}}
+        <li>
+          <div class="card">
+            <img src="images/blue-nike.jpg" alt="">
+            <div class="card-content">
+              <h4 class="card-title">Shoe Name</h4>  
+              <table>
+                <tr>
+                  <td>Brand:</td><td>{{brand_name}}</td>
+                </tr>
+                <tr>
+                  <td>Shoe Size:</td><td>{{size}}</td>
+                </tr>
+                <tr>
+                  <td>Color:</td><td>{{color_name}}</td>
+                </tr>
+                <tr>
+                  <td>Price:</td><td>R {{price}}</td>
+                </tr>
+                <tr>
+                  <td>In Stock:</td><td>{{in_stock}}</td>
+                </tr>
+              </table>
+              <!-- <button onclick="addToCart({{this.id}})" type="button" name="button">Add To Cart</button> -->
+              <a onclick="addToCart({{this.id}})" type="button" name="button"class="btn">add to cart</a>
+            </div>
+          </div>
+        </li>
+      {{/each}}
+      </ul>
+    </section>
+  </script>
+</head>
+<body>
+    <header id="head-section" class="grid">
+      <div class="background-image-catalogue"></div>
+      <div class="content-wrapper">
+        <h1>Available Stock</h1>
+        <p>Browse through all our latest stock</p>
+        <a id="show-button" type="button" name="show" href="cart.html" class="btn"><i class="fas fa-shopping-cart"></i></br>view cart</a>
+      </div>
+    </header>
+    <main id="main">
+      <div class="row available-stock">
+        <div class="twelve columns insertAvailableStockElement"></div>
+      </div>
+    </main>
+    <footer id="main-footer" class="grid">
+      <div><a href="index.html">Uncle's Shoe Store</a></div>
+      <div>Developed By <a href="http://michaelcdavids.github.io" target="_blank">M.Davids</a> @projectcode-x 2018</div>
+    </footer>
+ 
+</body>
+<script src="js/shoe-api.js" charset="utf-8"></script>
+<script src="js/catalogue-dom.js" charset="utf-8"></script>
+
+</html>

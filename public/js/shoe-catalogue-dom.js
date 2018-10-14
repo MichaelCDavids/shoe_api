@@ -61,6 +61,9 @@ searchButton.addEventListener('click', function () {
 });
 
 function search(brand, color, size) {
+  console.log(brand)
+  console.log(color)
+  console.log(size)
   if (brand !== '' && size !== '' && color !== '') {
     shoeCatalogue.filterAll(brand, color, size)
       .then(results => renderTemplate(results))
@@ -150,12 +153,25 @@ function addToCart(id) {
   insertSearchDataElement.innerHTML = "";
   shoeCatalogue.addItemToCart(id)
     .then(results => {
-      availableStockElement.innerHTML = templateCatalogue({
-        shoes: results.data.items
-      });
+      if (results.data.status === 'success') {
+        shoeCatalogue.stockShoes()
+          .then(shoes => {
+            availableStockElement.innerHTML = templateCatalogue({
+              shoes: shoes.data.items
+            });
+            brandSelector.innerHTML = brandTemplate({
+              brands: shoes.data.brands
+            });
+            colorSelector.innerHTML = colorTemplate({
+              colors: shoes.data.colors
+            });
+            sizeSelector.innerHTML = sizeTemplate({
+              sizes: shoes.data.sizes
+            });
+          });
+      }
     });
 };
-
 function removeFromCart(id) {
   shoeCatalogue.removeFromCart(id)
     .then(results => {
@@ -165,7 +181,6 @@ function removeFromCart(id) {
       });
     })
 };
-
 function checkout() {
   shoeCatalogue.checkout()
     .then(results => {
