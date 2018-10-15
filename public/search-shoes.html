@@ -15,38 +15,38 @@
     <title>Search</title>
     <script type="text/x-template" class="afterSearchTemplate">
         <h2>Search Results</h2>
-        <section id="section-two" class="grid">
+        <section id="section-catalogue" class="">
             <ul>
             {{#each searchResults}}
-            <li>
+              <li>
                 <div class="card">
-                <img src="images/blue-nike.jpg" alt="">
-                <div class="card-content">
+                  <img src="images/blue-nike.jpg" alt="">
+                  <div class="card-content">
                     <h4 class="card-title">Shoe Name</h4>  
                     <table>
-                    <tr>
+                      <tr>
                         <td>Brand:</td><td>{{brand_name}}</td>
-                    </tr>
-                    <tr>
+                      </tr>
+                      <tr>
                         <td>Shoe Size:</td><td>{{size}}</td>
-                    </tr>
-                    <tr>
+                      </tr>
+                      <tr>
                         <td>Color:</td><td>{{color_name}}</td>
-                    </tr>
-                    <tr>
+                      </tr>
+                      <tr>
                         <td>Price:</td><td>R {{price}}</td>
-                    </tr>
-                    <tr>
+                      </tr>
+                      <tr>
                         <td>Stock Left:</td><td>{{in_stock}}</td>
-                    </tr>
+                      </tr>
                     </table>
                     <a onclick="addToCart({{this.id}})" type="button" name="button"class="btn">add to cart</a>
+                  </div>
                 </div>
-                </div>
-            </li>
+              </li>
             {{/each}}
             </ul>
-        </section>
+          </section>
       </script>
     <script type="text/x-template" class="brandDropdown">
         <option value="">Select Brand</option>
@@ -67,6 +67,7 @@
           {{/each}}
       </script>
 </head>
+
 <body>
     <!--Header Section-->
     <header id="head-section" class="grid">
@@ -74,31 +75,32 @@
         <div class="content-wrapper">
             <h1>Search</h1>
             <div class="row search-area">
-                    <div class="dropDownOne">
-                        <select class="brand" name="brandSelector">
-                        </select>
-                    </div>
-                    <div class="dropDownTwo">
-                        <select class="color" name="colorSelector">
-                        </select>
-                    </div>
-                    <div class="dropDownThree">
-                        <select class="size" name="sizeSelector">
-                        </select>
-                    </div>
-                    <a id="search-button" type="button" name="search" class="btn">Search for shoe</a>
+                <div class="dropDownOne">
+                    <select class="brand" name="brandSelector">
+                    </select>
                 </div>
+                <div class="dropDownTwo">
+                    <select class="color" name="colorSelector">
+                    </select>
+                </div>
+                <div class="dropDownThree">
+                    <select class="size" name="sizeSelector">
+                    </select>
+                </div>
+                <a id="search-button" type="button" name="search" class="btn">Search for shoe</a>
+            </div>
         </div>
     </header>
     <main id="main">
-        <div class="row search-results" style="margin: 5% 5%;">
+        <div class="row search-results">
             <div class="twelve columns insertSearchDataElement">
             </div>
+            <a id="show-button" type="button" name="show" href="cart.html" class="btn">view cart</a>
         </div>
     </main>
     <footer id="main-footer" class="grid">
-        <div>Uncle's Shoe Store</div>
-        <div>Developed By <a href="http://michaelcdavids.github.io" target="_blank">M.Davids</a> @projectcode-x 2018</div>
+        <div><a href="index.html">Uncle's Shoe Store</a></div>
+        <div>Developed By <a href="#" target="_blank">M.Davids</a> @projectcode-x 2018</div>
     </footer>
 </body>
 <script src="js/shoe-api.js" charset="utf-8"></script>

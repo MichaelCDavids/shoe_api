@@ -16,7 +16,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
   <script type="text/x-template" class="availableStockTemplate">
-    <section id="section-two" class="grid">
+    <section id="section-catalogue" class="">
       <ul>
       {{#each shoes}}
         <li>
@@ -57,17 +57,18 @@
       <div class="content-wrapper">
         <h1>Available Stock</h1>
         <p>Browse through all our latest stock</p>
-        <a id="show-button" type="button" name="show" href="cart.html" class="btn"><i class="fas fa-shopping-cart"></i></br>view cart</a>
       </div>
     </header>
     <main id="main">
       <div class="row available-stock">
         <div class="twelve columns insertAvailableStockElement"></div>
+        <a id="show-button" type="button" name="show" href="cart.html" class="btn"><i class="fas fa-shopping-cart"></i></br>view cart</a>
       </div>
+
     </main>
     <footer id="main-footer" class="grid">
       <div><a href="index.html">Uncle's Shoe Store</a></div>
-      <div>Developed By <a href="http://michaelcdavids.github.io" target="_blank">M.Davids</a> @projectcode-x 2018</div>
+      <div>Developed By <a href="#" target="_blank">M.Davids</a> @projectcode-x 2018</div>
     </footer>
  
 </body>

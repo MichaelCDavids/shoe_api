@@ -149,6 +149,26 @@ select {
     color:#333;
 }
 
+#section-catalogue {
+    padding: 2em 1em 1em;
+    margin: 0 auto;
+    
+}
+#section-catalogue ul {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+#section-catalogue li {
+    margin: 1em;
+    width: 280px;
+    background: #fff;
+    color:#333;
+    float: left;
+}
+
+
 .card-content {
     padding: 1.5em;
    
