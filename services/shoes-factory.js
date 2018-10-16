@@ -94,6 +94,7 @@ module.exports = function ShoesService(pool) {
         getColors,
         getSizes,
         filterBrand,
+        filterColor,
         filterSize,
        
         filterBrandSize,

@@ -23,9 +23,15 @@ module.exports = function (shoesService, cartService) {
 		try {
 			let brand = req.params.brandname
 			let results = await shoesService.filterBrand(brand);
+			let brands = await shoesService.getBrands();
+			let colors = await shoesService.getColors();
+			let sizes = await shoesService.getSizes();
 			res.json({
 				status: 'success',
-				items: results
+				items: results,
+				brands: brands,
+				colors: colors,
+				sizes: sizes
 			})
 		} catch (err) {
 			res.json({
@@ -38,9 +44,15 @@ module.exports = function (shoesService, cartService) {
 		try {
 			let color = req.params.color
 			let results = await shoesService.filterColor(color);
+			let brands = await shoesService.getBrands();
+			let colors = await shoesService.getColors();
+			let sizes = await shoesService.getSizes();
 			res.json({
 				status: 'success',
-				items: results
+				items: results,
+				brands: brands,
+				colors: colors,
+				sizes: sizes
 			})
 		} catch (err) {
 			res.json({
@@ -53,9 +65,15 @@ module.exports = function (shoesService, cartService) {
 		try {
 			let size = req.params.size
 			let results = await shoesService.filterSize(size);
+			let brands = await shoesService.getBrands();
+			let colors = await shoesService.getColors();
+			let sizes = await shoesService.getSizes();
 			res.json({
 				status: 'success',
-				items: results
+				items: results,
+				brands: brands,
+				colors: colors,
+				sizes: sizes
 			})
 		} catch (err) {
 			res.json({
@@ -69,9 +87,15 @@ module.exports = function (shoesService, cartService) {
 			let brand = req.params.brandname
 			let size = req.params.size
 			let results = await shoesService.filterBrandSize(brand, size);
+			let brands = await shoesService.getBrands();
+			let colors = await shoesService.getColors();
+			let sizes = await shoesService.getSizes();
 			res.json({
 				status: 'success',
-				items: results
+				items: results,
+				brands: brands,
+				colors: colors,
+				sizes: sizes
 			})
 		} catch (err) {
 			res.json({
@@ -85,9 +109,15 @@ module.exports = function (shoesService, cartService) {
 			let brand = req.params.brandname
 			let color = req.params.color
 			let results = await shoesService.filterBrandColor(brand, color);
+			let brands = await shoesService.getBrands();
+			let colors = await shoesService.getColors();
+			let sizes = await shoesService.getSizes();
 			res.json({
 				status: 'success',
-				items: results
+				items: results,
+				brands: brands,
+				colors: colors,
+				sizes: sizes
 			})
 		} catch (err) {
 			res.json({
@@ -101,9 +131,15 @@ module.exports = function (shoesService, cartService) {
 			let color = req.params.color
 			let size = req.params.size
 			let results = await shoesService.filterColorSize(color, size);
+			let brands = await shoesService.getBrands();
+			let colors = await shoesService.getColors();
+			let sizes = await shoesService.getSizes();
 			res.json({
 				status: 'success',
-				items: results
+				items: results,
+				brands: brands,
+				colors: colors,
+				sizes: sizes
 			})
 		} catch (err) {
 			res.json({
@@ -118,9 +154,15 @@ module.exports = function (shoesService, cartService) {
 			let size = req.params.size;
 			let color = req.params.color;
 			let results = await shoesService.filterBrandColorSize(brand, color, size);
+			let brands = await shoesService.getBrands();
+			let colors = await shoesService.getColors();
+			let sizes = await shoesService.getSizes();
 			res.json({
 				status: 'success',
-				items: results
+				items: results,
+				brands: brands,
+				colors: colors,
+				sizes: sizes
 			})
 		} catch (err) {
 			res.json({
