@@ -9,12 +9,15 @@ module.exports = function (pool) {
         let results = await pool.query(query);
         return results.rows;
     };
-    async function addToCart(shoeID) {        
-        let foundShoe = await pool.query('select * from shoes where id=$1', [shoeID.id]);
+    async function addToCart(shoeID) {      
+        let foundShoe = await pool.query('select * from shoes where id=$1', [shoeID]);
         let shoe = foundShoe.rows[0];
+        console.log(shoe);
         if (shoe.in_stock > 0) {
             let cartShoe = await pool.query('select * from cart where shoe_id=$1', [shoe.id]);
             if (cartShoe.rowCount === 0) {
+                console.log(shoe);
+                
                 await pool.query('insert into cart (shoe_id, qty, total) values ($1, $2, $3)', [shoe.id, 1, 0]);
                 await pool.query('update cart set total=$1*qty where shoe_id=$2', [shoe.price, shoe.id]);
             } else {
@@ -23,6 +26,7 @@ module.exports = function (pool) {
             }
         }
         await pool.query('update shoes set in_stock=in_stock-1 where shoes.id=$1', [shoe.id]);
+        return "successfully added shoe to cart!";
     };
     async function removeFromCart(id) {
         let cartShoe = await pool.query(`select * from cart join shoes on shoes.id=cart.shoe_id where shoe_id=$1`, [id]);
@@ -49,8 +53,8 @@ module.exports = function (pool) {
         return newShoeList.rows;
     };
     return {
-        addToCart,
         cartShoes,
+        addToCart,
         removeFromCart,
         cartTotal,
         checkout
