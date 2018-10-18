@@ -174,13 +174,14 @@ module.exports = function (shoesService, cartService) {
 	async function addShoe(req, res) {
 		try {
 			let params = req.body;
-			await shoesService.addStockItem(params);
+			let message = await shoesService.addStockItem(params);
 			let results = await shoesService.getShoes();
 			let brands = await shoesService.getBrands();
 			let colors = await shoesService.getColors();
 			let sizes = await shoesService.getSizes();
 			res.json({
 				status: 'success',
+				message: message,
 				items: results,
 				brands: brands,
 				colors: colors,

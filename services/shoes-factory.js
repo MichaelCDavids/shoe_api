@@ -51,6 +51,7 @@ module.exports = function ShoesService(pool) {
         const shoeDataList = [brandID, shoeData.price, colorID, sizeID, shoeData.in_stock];
         const insertShoeQuery = 'insert into shoes (brand_id, price, color_id, size_id, in_stock) values ($1, $2, $3, $4, $5)';
         await pool.query(insertShoeQuery, shoeDataList);
+        return "Shoe was added successfully!";
     };
     async function addBrand(brand) {
         query = `select * from brands where brand_name=$1`;

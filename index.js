@@ -55,6 +55,7 @@ app.get('/api/shoes/brand/:brandname/size/:size', apiRoutes.filterByBrandSize);
 app.get('/api/shoes/color/:color/size/:size', apiRoutes.filterByColorSize);
 app.get('/api/shoes/brand/:brandname/color/:color/size/:size', apiRoutes.filterByBrandColorSize);
 app.get('/api/shoes/cart', apiRoutes.showCart);
+
 app.post('/api/shoes/add', apiRoutes.addShoe);
 app.post('/api/shoes/sold/:id', apiRoutes.addToCart);
 app.post('/api/shoes/cart/remove/:id', apiRoutes.removeFromCart);
