@@ -9,8 +9,8 @@ module.exports = function (pool) {
         let results = await pool.query(query);
         return results.rows;
     };
-    async function addToCart(shoeID) {      
-        let foundShoe = await pool.query('select * from shoes where id=$1', [shoeID]);
+    async function addToCart(shoeID) { 
+        let foundShoe = await pool.query('select * from shoes where id=$1', [shoeID.id]);
         let shoe = foundShoe.rows[0];
         if (shoe.in_stock > 0) {
             let cartShoe = await pool.query('select * from cart where shoe_id=$1', [shoe.id]);
