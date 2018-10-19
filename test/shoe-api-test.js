@@ -8,14 +8,12 @@ const connectionString = process.env.DATABASE_URL || 'postgresql://coder:pg123@l
 const pool = new Pool({
     connectionString
 });
-
 let shoeFactoryInstance = shoeFactory(pool);
 let cartFactoryInstance = cartFactory(pool);
 let app = require('../index');
 let chai = require('chai');
 let request = require('supertest');
 let expect = chai.expect;
-
 describe('The Shoe Catalogue API Tests', function () {
     beforeEach(async function () {
         await pool.query('delete from shoes');
@@ -84,7 +82,6 @@ describe('The Shoe Catalogue API Tests', function () {
                 done();
             })
     });
-
     it('the showCart function should return a status code of 200', function (done) {
         request(app)
             .get('/api/shoes/cart')
@@ -132,7 +129,6 @@ describe('The Shoe Catalogue API Tests', function () {
             })
     });
 });
-
 describe('The Shoe-Services Factory Functions', function () {
     it('The addStockItem function', async function () {
         let shoeFactoryObject = shoeFactoryInstance;
@@ -141,7 +137,7 @@ describe('The Shoe-Services Factory Functions', function () {
             "color": "Red",
             "price": 1230,
             "size": 1,
-            "in_stock": 100 
+            "in_stock": 100
         };
         let shoeOne = {
             "brand": "Puma",
@@ -213,38 +209,36 @@ describe('The Shoe-Services Factory Functions', function () {
     it('The getColors function', async function () {
         let shoeFactoryObject = shoeFactoryInstance;
         let results = await shoeFactoryObject.getColors();
-        assert.deepEqual(results, [
-              {
+        assert.deepEqual(results, [{
                 "color_name": "Blue",
                 "id": 2
-              },
-              {
+            },
+            {
                 "color_name": "Red",
                 "id": 1
-              },
-              {
+            },
+            {
                 "color_name": "White",
                 "id": 3
-              }
-            ]);
+            }
+        ]);
     });
     it('The getSizes function', async function () {
         let shoeFactoryObject = shoeFactoryInstance;
         let results = await shoeFactoryObject.getSizes();
-        assert.deepEqual(results, [
-              {
+        assert.deepEqual(results, [{
                 "id": 1,
                 "size": 1
-              },
-              {
+            },
+            {
                 "id": 2,
                 "size": 2
-              },
-              {
+            },
+            {
                 "id": 3,
                 "size": 3
-              }
-            ]);
+            }
+        ]);
     });
     it('The filterBrand function', async function () {
         let shoeFactoryObject = shoeFactoryInstance;
@@ -281,9 +275,9 @@ describe('The Shoe-Services Factory Functions', function () {
         let results = await shoeFactoryObject.filterBrandColorSize(2, 1, 1);
         assert.equal(results.length, 1);
     });
-    
+
 });
-describe('The Cart-Service Factory Functions', function (){ 
+describe('The Cart-Service Factory Functions', function () {
     it('The addToCart function', async function () {
         await pool.query('delete from shoes');
         let shoeOne = {
@@ -314,7 +308,9 @@ describe('The Cart-Service Factory Functions', function (){
     it('The cartTotal function', async function () {
         let cartFactoryObject = cartFactoryInstance;
         let results = await cartFactoryObject.cartTotal();
-        assert.deepEqual(results, { sum: null });
+        assert.deepEqual(results, {
+            sum: null
+        });
 
         await pool.query('delete from shoes');
         let shoeOne = {
@@ -328,7 +324,9 @@ describe('The Cart-Service Factory Functions', function (){
         let shoeID = await pool.query('select * from shoes');
         await cartFactoryObject.addToCart(shoeID.rows[0].id);
         let newResults = await cartFactoryObject.cartTotal();
-        assert.deepEqual(newResults, { sum: "1000" });
+        assert.deepEqual(newResults, {
+            sum: "1000"
+        });
     });
     it('The checkout function', async function () {
         let cartFactoryObject = cartFactoryInstance;
