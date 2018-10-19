@@ -4,7 +4,7 @@ const shoeFactory = require('../services/shoes-factory');
 const cartFactory = require('../services/cart-factory');
 const pg = require('pg');
 const Pool = pg.Pool;
-const connectionString = process.env.DATABASE_URL || 'postgresql://muji:pg123@localhost:5432/shoe_catalogue_test';
+const connectionString = process.env.DATABASE_URL || 'postgresql://coder:pg123@localhost:5432/shoe_catalogue_test';
 const pool = new Pool({
     connectionString
 });
@@ -153,6 +153,18 @@ describe('The Shoe-Services Factory Function', function () {
         await shoeFactoryInstance.addStockItem(shoeOne);
         await shoeFactoryInstance.addStockItem(shoeTwo);
     });
+    it('The addStockItem function', async function () {
+        let shoeFactoryObject = shoeFactoryInstance;
+        let params = {
+            "brand": "Nike",
+            "color": "Red",
+            "price": 1230,
+            "size": 4,
+            "in_stock": 48
+        };
+        let results = await shoeFactoryObject.addStockItem(params);
+        assert.deepEqual(results, "Shoe was added successfully!");
+    });
     it('The get shoes function', async function () {
         let shoeFactoryObject = shoeFactoryInstance;
         let results = await shoeFactoryObject.getShoes();
@@ -269,31 +281,21 @@ describe('The Shoe-Services Factory Function', function () {
         let results = await shoeFactoryObject.filterBrandColorSize(1, 1, 1);
         assert.equal(results.length, 1);
     });
-    it('The addStockItem function', async function () {
-        let shoeFactoryObject = shoeFactoryInstance;
-        let params = {
-            "brand": "Nike",
-            "color": "Red",
-            "price": 1230,
-            "size": 4,
-            "in_stock": 48
-        };
-        let results = await shoeFactoryObject.addStockItem(params);
-        assert.deepEqual(results, "Shoe was added successfully!");
-    });
+    
 });
+
 describe('The Cart-Service Factory Function', function (){
-    beforeEach(async function () {
-        await pool.query('delete from cart');
+    // beforeEach(async function () {
+    //     await pool.query('delete from cart');
        
-    });
-    it('The addToCart function', async function () {
-        let cartFactoryObject = cartFactoryInstance;
-        let shoeID = await pool.query('select * from shoes');
-        console.log(shoeID.rows[0].id);
-        let results = await cartFactoryObject.addToCart(shoeID.rows[0].id);
-        assert.equal(results, "successfully added shoe to cart!");
-    });
+    // });
+    // it('The addToCart function', async function () {
+    //     let cartFactoryObject = cartFactoryInstance;
+    //     let shoeID = await pool.query('select * from shoes');
+    //     console.log(shoeID.rows[0].id);
+    //     let results = await cartFactoryObject.addToCart(shoeID.rows[0].id);
+    //     assert.equal(results, "successfully added shoe to cart!");
+    // });
     // it('The cartShoes function', async function () {
     //     let cartFactoryObject = cartFactoryInstance;
     //     let results = await cartFactoryObject.cartShoes();
