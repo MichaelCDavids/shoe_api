@@ -201,13 +201,13 @@ describe('The Shoe-Services Factory Functions', function () {
         let results = await shoeFactoryObject.getBrands();
         assert.deepEqual(results, [{
             "brand_name": "Adidas",
-            "id": 3
+            "id": 4
         }, {
             "brand_name": "Nike",
-            "id": 1
+            "id": 2
         }, {
             "brand_name": "Puma",
-            "id": 2
+            "id": 3
         }]);
     });
     it('The getColors function', async function () {
@@ -248,7 +248,7 @@ describe('The Shoe-Services Factory Functions', function () {
     });
     it('The filterBrand function', async function () {
         let shoeFactoryObject = shoeFactoryInstance;
-        let results = await shoeFactoryObject.filterBrand(1);
+        let results = await shoeFactoryObject.filterBrand(2);
         assert.equal(results.length, 1);
     });
     it('The filterSize function', async function () {
@@ -263,12 +263,12 @@ describe('The Shoe-Services Factory Functions', function () {
     });
     it('The filterBrandSize function', async function () {
         let shoeFactoryObject = shoeFactoryInstance;
-        let results = await shoeFactoryObject.filterBrandSize(1, 1);
+        let results = await shoeFactoryObject.filterBrandSize(2, 1);
         assert.equal(results.length, 1);
     });
     it('The filterBrandColor function', async function () {
         let shoeFactoryObject = shoeFactoryInstance;
-        let results = await shoeFactoryObject.filterBrandColor(1, 1);
+        let results = await shoeFactoryObject.filterBrandColor(2, 1);
         assert.equal(results.length, 1);
     });
     it('The filterColorSize function', async function () {
@@ -278,7 +278,7 @@ describe('The Shoe-Services Factory Functions', function () {
     });
     it('The filterBrandColorSize function', async function () {
         let shoeFactoryObject = shoeFactoryInstance;
-        let results = await shoeFactoryObject.filterBrandColorSize(1, 1, 1);
+        let results = await shoeFactoryObject.filterBrandColorSize(2, 1, 1);
         assert.equal(results.length, 1);
     });
     
