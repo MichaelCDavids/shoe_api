@@ -1,23 +1,17 @@
-let searchButton = document.querySelector("#search-button");
-
-let searchResultsTemplate = document.querySelector(".afterSearchTemplate").innerHTML;
-let templateShoeCatalogue = Handlebars.compile(searchResultsTemplate);
-let insertSearchDataElement = document.querySelector(".insertSearchDataElement");
-
-let brandSource = document.querySelector(".brandDropdown").innerHTML;
-let brandTemplate = Handlebars.compile(brandSource);
-let brandSelector = document.querySelector(".brand");
-
-let colorSource = document.querySelector(".colorDropdown").innerHTML;
-let colorTemplate = Handlebars.compile(colorSource);
-let colorSelector = document.querySelector(".color");
-
-let sizeSource = document.querySelector(".sizeDropdown").innerHTML;
-let sizeTemplate = Handlebars.compile(sizeSource);
-let sizeSelector = document.querySelector(".size");
-
+const searchButton = document.querySelector("#search-button");
+const searchResultsTemplate = document.querySelector(".afterSearchTemplate").innerHTML;
+const templateShoeCatalogue = Handlebars.compile(searchResultsTemplate);
+const insertSearchDataElement = document.querySelector(".insertSearchDataElement");
+const brandSource = document.querySelector(".brandDropdown").innerHTML;
+const brandTemplate = Handlebars.compile(brandSource);
+const brandSelector = document.querySelector(".brand");
+const colorSource = document.querySelector(".colorDropdown").innerHTML;
+const colorTemplate = Handlebars.compile(colorSource);
+const colorSelector = document.querySelector(".color");
+const sizeSource = document.querySelector(".sizeDropdown").innerHTML;
+const sizeTemplate = Handlebars.compile(sizeSource);
+const sizeSelector = document.querySelector(".size");
 const shoeCatalogue = ShoeCatalogue();
-
 window.addEventListener('load', function () {
   let brand = brandSelector.value;
   let size = sizeSelector.value;

@@ -1,7 +1,6 @@
-
-let availableStockTemplateSource = document.querySelector(".availableStockTemplate").innerHTML;
-let templateCatalogue = Handlebars.compile(availableStockTemplateSource);
-let availableStockElement = document.querySelector(".insertAvailableStockElement");
+const availableStockTemplateSource = document.querySelector(".availableStockTemplate").innerHTML;
+const templateCatalogue = Handlebars.compile(availableStockTemplateSource);
+const availableStockElement = document.querySelector(".insertAvailableStockElement");
 const shoeCatalogue = ShoeCatalogue();
 window.addEventListener('load', function () {
     shoeCatalogue.stockShoes()
@@ -11,8 +10,6 @@ window.addEventListener('load', function () {
             });
         });
 });
-
-
 function addToCart(id) {
     shoeCatalogue.addItemToCart(id)
         .then(results => {

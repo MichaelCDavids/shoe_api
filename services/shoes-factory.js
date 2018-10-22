@@ -1,6 +1,6 @@
 module.exports = function ShoesService(pool) {
     async function getShoes() {
-        let query = `select shoes.id as id,brand_name,color_name,price,in_stock,sizes.size as size from shoes join brands on brands.id = shoes.brand_id join colors on colors.id = shoes.color_id join sizes on sizes.id = shoes.size_id where in_stock > 0 order by shoes.id`;
+        let query = `select shoes.id as id,brand_name,color_name,price,in_stock,sizes.size as size,image_location as image_location, shoe_name as shoe_name from shoes join brands on brands.id = shoes.brand_id join colors on colors.id = shoes.color_id join sizes on sizes.id = shoes.size_id join images on images.id=shoes.image_location_id join shoe_names on shoe_names.id=shoes.shoe_name_id where in_stock > 0 order by shoes.id`;
         let results = await pool.query(query);
         return results.rows;
     };
@@ -48,8 +48,10 @@ module.exports = function ShoesService(pool) {
         let brandID = await addBrand(shoeData.brand);
         let colorID = await addColor(shoeData.color);
         let sizeID = await addSize(shoeData.size);
-        const shoeDataList = [brandID, shoeData.price, colorID, sizeID, shoeData.in_stock];
-        const insertShoeQuery = 'insert into shoes (brand_id, price, color_id, size_id, in_stock) values ($1, $2, $3, $4, $5)';
+        let imageID = await addImage(shoeData.image);
+        let nameID = await addShoeName(shoeData.name);
+        const shoeDataList = [imageID, nameID, brandID, shoeData.price, colorID, sizeID, shoeData.in_stock];
+        const insertShoeQuery = 'insert into shoes (image_location_id, shoe_name_id, brand_id, price, color_id, size_id, in_stock) values ($1, $2, $3, $4, $5, $6, $7)';
         await pool.query(insertShoeQuery, shoeDataList);
         return "Shoe was added successfully!";
     };
@@ -87,6 +89,30 @@ module.exports = function ShoesService(pool) {
         } else {
             let sizeID = await pool.query('select id from sizes where size=$1', [size])
             return sizeID.rows[0].id
+        }
+    };
+    async function addImage(image) {
+        query = `select * from images where image_location=$1`;
+        let foundImage = await pool.query(query, [image]);
+        if (foundImage.rowCount === 0) {
+            await pool.query('insert into images (image_location) values ($1)', [image]);
+            let imageID = await pool.query('select id from images where image_location=$1', [image])
+            return imageID.rows[0].id
+        } else {
+            let imageID = await pool.query('select id from images where image_location=$1', [image])
+            return imageID.rows[0].id
+        }
+    };
+    async function addShoeName(name) {
+        query = `select * from shoe_names where shoe_name=$1`;
+        let foundName = await pool.query(query, [name]);
+        if (foundName.rowCount === 0) {
+            await pool.query('insert into shoe_names (shoe_name) values ($1)', [name]);
+            let nameID = await pool.query('select id from shoe_names where shoe_name=$1', [name])
+            return nameID.rows[0].id
+        } else {
+            let nameID = await pool.query('select id from shoe_names where shoe_name=$1', [name])
+            return nameID.rows[0].id
         }
     };
     return {

@@ -1,6 +1,229 @@
-body{
+/* Core Styles */
+html {
+    scroll-behavior: smooth;
+  }
+body {
     margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #222;
+    color: #fff;
+    font-size: 1em;
+    line-height: 1.5;
+    text-align: center;
 }
+
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+h1,
+h2,
+h3 {
+    margin: 0;
+    padding: 1em 0;
+
+}
+
+p {
+    margin: 0;
+    padding: 1em 0;
+}
+
+.btn {
+    display: inline-block;
+    background: #333;
+    color: #fff;
+    text-decoration: none;
+    padding: 1em 2em;
+    border: 1px solid #666;
+    margin: 0.5em 0;
+    border-radius: 25px;
+}
+
+.btn:hover {
+    background: #eaeaea;
+    color: #333;
+}
+
+select {
+
+    background: #333;
+}
+
+/* Header Section */
+
+#head-section {
+    min-height: 540px;
+    color: #fff;
+    text-align: center;
+}
+
+#head-section .background-image {
+    position: absolute;
+    background: #333 url('../images/welcome.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 540px;
+    z-index: -1;
+    opacity: 0.2;
+}
+
+.flash{
+    color:  white;
+}
+
+.background-image-search {
+    position: absolute;
+    background: #333 url('../images/search.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 540px;
+    z-index: -1;
+    opacity: 0.2;
+}
+
+.background-image-catalogue {
+    position: absolute;
+    background: #333 url('../images/catalogue.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 540px;
+    z-index: -1;
+    opacity: 0.2;
+}
+
+.background-image-listshoe {
+    position: absolute;
+    background: #333 url('../images/listshoe.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 540px;
+    z-index: -1;
+    opacity: 0.2;
+}
+
+.background-image-cart {
+    position: absolute;
+    background: #333 url('../images/cart.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 540px;
+    z-index: -1;
+    opacity: 0.2;
+}
+
+
+#head-section h1 {
+    padding-top: 100px;
+    padding-bottom: 0;
+}
+
+#head-section .content-wrap,
+#section-one .content-wrap {
+    padding: 0;
+}
+
+/* Section One */
+
+#section-one {
+    background: #eaeaea;
+    color: #333;
+    padding-bottom: 2em;
+}
+
+/* Section Two */
+#section-two {
+    padding: 2em 1em 1em;
+}
+
+#section-two ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#section-two li {
+    margin: 1em;
+    background: #fff;
+    color: #333;
+}
+
+#section-catalogue {
+    padding: 2em 1em 1em;
+    margin: 0 auto;
+
+}
+
+#section-catalogue ul {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+#section-catalogue li {
+    margin: 1em;
+    width: 280px;
+    background: #fff;
+    color: #333;
+    float: left;
+}
+
+
+.card-content {
+    padding: 1.5em;
+
+}
+
+.card-content table {
+    padding: 1.5em;
+    margin: 0 auto;
+}
+
+/* Section Three */
+
+#section-three {
+    background: #fff;
+    color: #333;
+    padding: 2em;
+}
+
+/* Section Four */
+
+#section-four .box {
+    padding: 2em;
+    color: #fff;
+}
+
+#section-four .box:first-child {
+    background: #2690d4;
+}
+
+/* Footer */
+
+#main-footer {
+    padding: 2em;
+    background: #000;
+    color: #fff;
+    text-align: center;
+}
+
+#main-footer a {
+    color: #2690d4;
+    text-decoration: none;
+}
+
 .container {
     width: 100%;
     margin: 0 auto;
@@ -22,20 +245,22 @@ body{
     text-align: center;
 }
 
-select{
+select {
     background: #333;
 }
+
 select.brand,
 select.color,
 select.size {
-    text-align-last:center;
-    color:  black;
+    text-align-last: center;
+    color: black;
     margin: 1em auto;
     width: 250px;
     height: 3em;
-    
+
 }
-#search-button{
+
+#search-button {
     margin: 15px;
     width: 250px;
     height: 3em;
@@ -47,45 +272,88 @@ select.size {
     border: 1px solid black;
     width: auto;
 }
+
+.addImage,
+.addShoeName,
 .addBrand,
 .addColor,
 .addSize,
 .addPrice,
-.addStock{
+.addStock {
     text-align: center;
     margin: 5px;
     width: 250px;
     height: 3em;
 }
 
-.total{
+.total {
     text-align: center;
 }
 
-.shopping-cart{
+.shopping-cart {
     border: 1px solid black;
 }
 
-.search-results h2{
+.search-results h2 {
     text-align: center;
     color: white;
     background-color: #2F97C1;
     height: 2em;
 }
-.search-results{
+
+.search-results {
     height: 1265px;
     overflow: scroll;
     scroll-behavior: smooth;
 }
 
-.available-stock{
+.available-stock {
     height: 1265px;
     overflow: scroll;
     scroll-behavior: smooth;
 
-} 
- 
- ::-webkit-scrollbar {
-     display: none;
- }
+}
 
+::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* Media Queries */
+
+@media (min-width: 700px) {
+
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr repeat(2, minmax(auto, 25em)) 1fr;
+    }
+
+    #section-one .content-text {
+        columns: 2;
+        column-gap: 2em;
+    }
+
+    #section-one .content-text p {
+        padding-top: 0;
+    }
+
+    .content-wrapper,
+    #section-two ul {
+        grid-column: 2/4;
+
+    }
+
+    .box,
+    #main-footer div {
+        grid-column: span 2;
+    }
+
+    #section-two ul {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    #section-two ul li {
+        width: 51%;
+    }
+}

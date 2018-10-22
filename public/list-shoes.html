@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/new-styles.css">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/skeleton.css">
     <link rel="stylesheet" href="css/styles.css">
@@ -14,21 +13,40 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
     <title>Sell with us</title>
+    <script type="text/x-template" class="flashMessages">
+        <p class="flash">{{messages}}</p>
+    </script>
 </head>
 
 <body>
     <header id="head-section" class="grid">
         <div class="background-image-listshoe"></div>
         <div class="content-wrapper">
-            <h1>List a new shoe</h1>
-            <input type="text" name="addBrand" class="addBrand" placeholder="Brand Name">
-            <input type="text" name="addColor" class="addColor" placeholder="Shoe Color">
-            <input type="number" name="addSize" class="addSize" placeholder="Shoe Size">
-            <input type="number" name="addPrice" class="addPrice" placeholder="Shoe Price">
-            <input type="number" name="addstock" class="addStock" placeholder="Units of Stock">
-            <a id="add-button" type="submit" name="add" class="btn">List Shoe</a>
+            <h1>Add shoe to catalogue</h1>
+            <div class="flashMessagesElement"></div>
+            <input type="text" name="addImage" class="addImage" placeholder="File Name" title="name of image file"
+                required>
+            <input type="text" name="addShoeName" class="addShoeName" placeholder="Shoe Name" title="requires a name of the shoe"
+                required>
+            <input type="text" name="addBrand" class="addBrand" placeholder="Brand Name" title="requires a valid brand name e.g Adidas"
+                required>
+            <input type="text" name="addColor" class="addColor" placeholder="Shoe Color" title="requires a valid color name e.g Blue"
+                required>
+            <input type="number" name="addSize" class="addSize" placeholder="Shoe Size" title="requires a valid shoe size  e.g 7"
+                required>
+            <input type="number" name="addPrice" class="addPrice" placeholder="Shoe Price" title="requires a price e.g R 2599 "
+                required>
+            <input type="number" name="addstock" class="addStock" placeholder="Units of Stock" title="stock quantity e.g 158"
+                required>
+                <a id="add-button" type="submit" name="add" class="btn">Add Stock</a>
         </div>
+        <!-- <a id="add-button" type="submit" name="add" class="btn">Add Stock</a> -->
     </header>
+    <main>
+        <div class="row">
+
+        </div>
+    </main>
     <footer id="main-footer" class="grid">
         <div><a href="index.html">Uncle's Shoe Store</a></div>
         <div>Developed By <a href="#" target="_blank">M.Davids</a> @projectcode-x 2018</div>
@@ -36,4 +54,5 @@
 </body>
 <script src="js/shoe-api.js" charset="utf-8"></script>
 <script src="js/list-shoes-dom.js" charset="utf-8"></script>
+
 </html>
