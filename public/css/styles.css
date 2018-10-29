@@ -241,7 +241,6 @@ select {
 }
 
 .search-area {
-    border: 1px solid black;
     text-align: center;
 }
 
@@ -253,7 +252,7 @@ select.brand,
 select.color,
 select.size {
     text-align-last: center;
-    color: black;
+    color: white;
     margin: 1em auto;
     width: 250px;
     height: 3em;
@@ -297,7 +296,7 @@ select.size {
 .search-results h2 {
     text-align: center;
     color: white;
-    background-color: #2F97C1;
+    background-color: #333;
     height: 2em;
 }
 
